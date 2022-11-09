@@ -25,6 +25,7 @@
     "eslint": "^8.27.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "lokijs": "^1.5.12",
     "node-vk-bot-api": "^3.5.0"
   },
   "devDependencies": {
