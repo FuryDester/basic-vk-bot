@@ -1,4 +1,6 @@
-import * as dotenv from 'dotenv';
+import 'module-alias/register';
 
-dotenv.config({ path: `${__dirname}/.env` });
+import { config } from 'dotenv';
+
+config({ path: `${__dirname}/.env` });
 
