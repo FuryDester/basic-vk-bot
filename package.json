@@ -29,7 +29,9 @@
     "node-vk-bot-api": "^3.5.0"
   },
   "devDependencies": {
+    "@types/lokijs": "^1.5.7",
     "@types/node": "^18.11.9",
+    "eslint-import-resolver-typescript": "^3.5.2",
     "typescript": "^4.8.4"
   }
 }

@@ -6,6 +6,22 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["import"],
+  "plugins": ["import", "@typescript-eslint"],
+  "settings": {
+    "import/extensions": {
+      "node": {
+        "extensions": [".ts"]
+      }
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
   "rules": {}
 }
