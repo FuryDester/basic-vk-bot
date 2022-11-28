@@ -1,4 +1,4 @@
-import LokiDatabase from 'lokijs';
+import * as LokiDatabase from 'lokijs';
 
 class DatabaseClient {
   private db: LokiDatabase;
