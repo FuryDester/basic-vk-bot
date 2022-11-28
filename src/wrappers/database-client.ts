@@ -1,6 +1,6 @@
 import * as LokiDatabase from 'lokijs';
 
-class DatabaseClient {
+export class DatabaseClient {
   private db: LokiDatabase;
 
   private isAvailable: boolean;
