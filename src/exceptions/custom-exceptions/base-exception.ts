@@ -4,13 +4,33 @@ abstract class BaseException extends Error {
   constructor(msg?: string, options?: Record<string, unknown>) {
     super(msg);
 
+    const keys = this.getOptionsKeys();
+    Object.keys(keys).forEach((key: string) => {
+      if (options[key] !== undefined) {
+        delete options[key];
+      }
+
+      if (keys[key] && options[key] === undefined) {
+        throw new Error(`Option ${key} is required for ${this.getName()}`);
+      }
+    });
+
     this.options = options;
 
     Object.setPrototypeOf(this, new.target.prototype);
     this.name = this.getName();
   }
 
-  abstract getName(): string;
+  protected abstract getName(): string;
+
+  /**
+   * Return all options that can be in exception
+   * If false - option is unnecessary, otherwise it is necessary
+   * Example:
+   * 'databaseName': true - necessary key
+   * 'login': false - unnecessary key
+   */
+  abstract getOptionsKeys(): Record<string, boolean>;
 
   getOptions(): Record<string, unknown> {
     return this.options;
