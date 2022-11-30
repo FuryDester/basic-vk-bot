@@ -1,4 +1,5 @@
 import * as LokiDatabase from 'lokijs';
+import DatabaseNotAvailableException from '@/exceptions/custom-exceptions/database-not-available-exception';
 
 export class DatabaseClient {
   private db: LokiDatabase;
@@ -31,6 +32,8 @@ export class DatabaseClient {
   }
 
   getOrAddCollection(name: string, options?: Partial<CollectionOptions<unknown>> | undefined): Collection<object> {
+    this.throwIfNotAvailable();
+
     return this.db.getCollection(name) || this.db.addCollection(name, options);
   }
 
@@ -40,8 +43,25 @@ export class DatabaseClient {
 
   setDatabase(db: LokiDatabase): DatabaseClient {
     this.db = db;
+    this.isAvailable = true;
 
     return this;
+  }
+
+  close(): void {
+    this.throwIfNotAvailable();
+
+    this.db.close();
+
+    this.isAvailable = false;
+  }
+
+  private throwIfNotAvailable(): void {
+    if (!this.isAvailable) {
+      throw new DatabaseNotAvailableException('Database is not available', {
+        databaseName: this.db.filename,
+      });
+    }
   }
 }
 
