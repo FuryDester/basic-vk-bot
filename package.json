@@ -30,6 +30,7 @@
     "eslint-plugin-import": "^2.26.0",
     "lokijs": "^1.5.12",
     "module-alias": "^2.2.2",
+    "moment": "^2.29.4",
     "node-vk-bot-api": "^3.5.0"
   },
   "devDependencies": {
