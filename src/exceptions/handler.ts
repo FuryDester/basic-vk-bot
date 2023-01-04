@@ -11,14 +11,14 @@ process.on('uncaughtException', (error: Error) => {
   if (error instanceof BaseException) {
     exceptionHandlers.forEach((item) => {
       if (error instanceof item[0]) {
-        new item[1](error as BaseException & string);
+        new item[1](error as unknown as BaseException & string);
         foundHandler = true;
       }
     });
   }
 
   if (!foundHandler) {
-    console.log(error);
+    console.error(error);
     process.exit(1);
   }
 });
