@@ -6,7 +6,10 @@ class VkBotPollingException extends BaseException {
   }
 
   getOptionsKeys(): Record<string, boolean> {
-    return {};
+    return {
+      id   : true,
+      data : false,
+    };
   }
 }
 
