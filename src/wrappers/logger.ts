@@ -7,49 +7,39 @@ import { appendFileSync, writeFileSync, existsSync } from 'fs';
 import path from 'path';
 
 class Logger {
-  private static instance: Logger;
-
-  public static getInstance(): Logger {
-    if (!Logger.instance) {
-      Logger.instance = new Logger();
-    }
-
-    return Logger.instance;
-  }
-
-  public debug(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static debug(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Debug, message, channel);
   }
 
-  public info(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static info(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Info, message, channel);
   }
 
-  public notice(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static notice(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Notice, message, channel);
   }
 
-  public warning(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static warning(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Warning, message, channel);
   }
 
-  public error(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static error(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Error, message, channel);
   }
 
-  public critical(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static critical(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Critical, message, channel);
   }
 
-  public alert(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static alert(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Alert, message, channel);
   }
 
-  public emergency(message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static emergency(message: string, channel: LogChannel = LogChannelEnum.All): void {
     this.log(LogLevelEnum.Emergency, message, channel);
   }
 
-  public log(level: LogLevel, message: string, channel: LogChannel = LogChannelEnum.All): void {
+  public static log(level: LogLevel, message: string, channel: LogChannel = LogChannelEnum.All): void {
     if (channel === LogChannelEnum.All || channel === LogChannelEnum.Console) {
       this.logToConsole(level, message);
     }
@@ -63,11 +53,11 @@ class Logger {
     }
   }
 
-  private logToConsole(level: LogLevel, message: string): void {
+  private static logToConsole(level: LogLevel, message: string): void {
     console.log(`[${moment().format('DD.MM.YYYY HH:mm:ss')}] [${level.toUpperCase()}] ${message}`);
   }
 
-  private logToFilesystem(level: LogLevel, message: string): void {
+  private static logToFilesystem(level: LogLevel, message: string): void {
     try {
       const currentMoment = moment();
       const logPath = path.resolve(__dirname, `../../logs/${currentMoment.format('YYYY-MM-DD')}.log`);
@@ -83,7 +73,7 @@ class Logger {
     }
   }
 
-  private logToDatabase(level: LogLevel, message: string): void {
+  private static logToDatabase(level: LogLevel, message: string): void {
     try {
       databaseClient.getOrAddCollection('logs').insertOne({
         level     : level.toUpperCase(),
