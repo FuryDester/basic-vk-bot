@@ -15,29 +15,33 @@ import { VkClient } from '@/wrappers/vk-client';
 import VkBotPollingException from '@/exceptions/custom-exceptions/vk-bot-polling-exception';
 import Listeners from '@/events/listeners';
 
-Logger.info('Starting up...');
-
-const groupsData = (new GroupsData()).getTable();
 let clients = [];
-groupsData.find().forEach((group: GroupDto & object & LokiObj) => {
-  Logger.info(`Group: ${group.id} (${group.name}) found`);
+databaseClient.afterAvailability(() => {
+  Logger.info('Starting up...');
 
-  const client = new VkClient(group.id, group.token, false);
-  Object.keys(Listeners).forEach((listenerName: string) => {
-    client.event(listenerName, Listeners[listenerName].handle);
+  const groupsData = (new GroupsData()).getTable();
+  groupsData.find().forEach((group: GroupDto & object & LokiObj) => {
+    Logger.info(`Group: ${group.id} (${group.name}) found`);
+
+    const client = new VkClient(group.id, group.token, false);
+    Object.keys(Listeners).forEach((listenerName: string) => {
+      // Registering event handlers
+      client.event(listenerName, Listeners[listenerName].handle);
+    });
+    Logger.info(`Group: ${group.id} (${group.name}) registered events: ${Object.keys(Listeners).join(', ')}`);
+
+    client.startPolling((err: any) => {
+      if (err) {
+        throw new VkBotPollingException('Error while startPolling on start script', {
+          id   : group.id,
+          data : err,
+        });
+      }
+
+      return {};
+    });
+    clients.push(client);
   });
-
-  client.startPolling((err: any) => {
-    if (err) {
-      throw new VkBotPollingException('Error while startPolling on start script', {
-        id   : group.id,
-        data : err,
-      });
-    }
-
-    return {};
-  });
-  clients.push(client);
 });
 
 process.on('exit', () => {
