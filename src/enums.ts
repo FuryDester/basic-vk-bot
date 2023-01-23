@@ -15,3 +15,11 @@ export enum LogLevelEnum {
   Alert = 'alert',
   Emergency = 'emergency',
 }
+
+export enum EventPriorityEnum {
+  Highest = 100,
+  High = 75,
+  Normal = 50,
+  Low = 25,
+  Lowest = 0,
+}
