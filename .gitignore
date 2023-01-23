@@ -3,4 +3,4 @@
 /build
 .env
 *.db
-create-data.ts
+/src/create-data.ts
