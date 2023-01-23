@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node build/index.js",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "fill": "node build/create-data.js"
   },
   "repository": {
     "type": "git",
