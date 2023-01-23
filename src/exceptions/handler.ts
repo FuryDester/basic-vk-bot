@@ -3,9 +3,12 @@ import VkBotPollingExceptionHandler from '@/exceptions/handlers/vk-bot-polling-e
 import BaseException from '@/exceptions/custom-exceptions/base-exception';
 import Logger from '@/wrappers/logger';
 import { LogChannelEnum } from '@/enums';
+import DatabaseNotAvailableException from '@/exceptions/custom-exceptions/database-not-available-exception';
+import DatabaseNotAvailableExceptionHandler from '@/exceptions/handlers/database-not-available-handler';
 
 const exceptionHandlers = [
   [VkBotPollingException, VkBotPollingExceptionHandler],
+  [DatabaseNotAvailableException, DatabaseNotAvailableExceptionHandler],
 ];
 
 process.on('uncaughtException', (error: Error) => {
