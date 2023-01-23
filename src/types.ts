@@ -1,9 +1,11 @@
 import {
   LogLevelEnum,
   LogChannelEnum,
-  EventPriorityEnum,
+  GroupPermissionEnum,
 } from '@/enums';
 
 export type LogLevel = `${LogLevelEnum}`;
+
 export type LogChannel = `${LogChannelEnum}`;
-export type EventPriority = `${EventPriorityEnum}`;
+
+export type GroupPermission = `${GroupPermissionEnum}`;
