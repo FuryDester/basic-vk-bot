@@ -11,7 +11,7 @@ import { databaseClient } from '@/wrappers/database-client';
 import GroupsData from '@/models/groups-data';
 import Logger from '@/wrappers/logger';
 import { LogChannelEnum } from '@/enums';
-import GroupDto from '@/data-transfer-objects/group-dto';
+import GroupDto from '@/data-transfer-objects/models/group-dto';
 import { VkClient } from '@/wrappers/vk-client';
 import VkBotPollingException from '@/exceptions/custom-exceptions/vk-bot-polling-exception';
 
@@ -31,6 +31,8 @@ groupsData.find().forEach((group: GroupDto & object & LokiObj) => {
         data : err,
       });
     }
+
+    return {};
   });
   clients.push(client);
 });
