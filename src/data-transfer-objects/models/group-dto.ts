@@ -1,4 +1,5 @@
-import type { GroupMemberPermission, GroupPermission } from '@/types';
+import type { GroupPermission } from '@/types';
+import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 
 class GroupDto {
   id: number;
@@ -7,7 +8,7 @@ class GroupDto {
 
   token: string;
 
-  members: GroupMemberPermission[];
+  members: GroupMemberDto[];
 
   permissions: GroupPermission[];
 }
