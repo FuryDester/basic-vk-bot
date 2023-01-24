@@ -4,3 +4,4 @@
 .env
 *.db
 /src/create-data.ts
+npm-debug.log

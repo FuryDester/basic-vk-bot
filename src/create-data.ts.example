@@ -1,0 +1,29 @@
+import 'module-alias/register';
+
+import { config } from 'dotenv';
+import { resolve } from 'path';
+config({ path: resolve(__dirname, '../.env') });
+
+import '@/exceptions/handler';
+
+import { databaseClient } from '@/wrappers/database-client';
+import GroupsData from '@/models/groups-data';
+import Logger from '@/wrappers/logger';
+import GroupDto from '@/data-transfer-objects/models/group-dto';
+
+databaseClient.afterAvailability(() => {
+  Logger.info('Starting nvmfilling database...');
+
+  const groupsData = (new GroupsData()).getTable();
+  const groupDto = new GroupDto();
+  // Group data here
+  groupDto.id = 0;
+  groupDto.name = 'Test';
+  groupDto.token = '';
+
+  const result = groupsData.insert(groupDto);
+
+  console.log(result);
+
+  databaseClient.close();
+});

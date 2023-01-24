@@ -2,9 +2,9 @@ import { databaseClient } from '@/wrappers/database-client';
 import type { LogLevel, LogChannel } from '@/types';
 import { LogLevelEnum, LogChannelEnum } from '@/enums';
 import DatabaseNotAvailableException from '@/exceptions/custom-exceptions/database-not-available-exception';
-import moment from 'moment';
+import * as moment from 'moment';
 import { appendFileSync, writeFileSync, existsSync } from 'fs';
-import path from 'path';
+import * as path from 'path';
 
 class Logger {
   public static debug(message: string, channel: LogChannel = LogChannelEnum.All): void {
@@ -60,6 +60,7 @@ class Logger {
   private static logToFilesystem(level: LogLevel, message: string): void {
     try {
       const currentMoment = moment();
+      console.log(path);
       const logPath = path.resolve(__dirname, `../../logs/${currentMoment.format('YYYY-MM-DD')}.log`);
 
       if (!existsSync(logPath)) {
