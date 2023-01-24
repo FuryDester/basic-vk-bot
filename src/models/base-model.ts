@@ -9,8 +9,10 @@ abstract class BaseModel {
 
   protected abstract getTableName(): string;
 
+  protected abstract getTableOptions(): Record<string, unknown> | undefined;
+
   public getTable(): Collection<object> {
-    return this.databaseClient.getOrAddCollection(this.getTableName());
+    return this.databaseClient.getOrAddCollection(this.getTableName(), this.getTableOptions());
   }
 }
 
