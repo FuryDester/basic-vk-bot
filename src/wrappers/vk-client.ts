@@ -78,7 +78,7 @@ export class VkClient {
     return this.getBotInstance().execute(method, params);
   }
 
-  isConversationMessage(ctx: VkBotContext): boolean {
+  static isConversationMessage(ctx: VkBotContext): boolean {
     return ctx.message.peer_id !== ctx.message.from_id;
   }
 }
