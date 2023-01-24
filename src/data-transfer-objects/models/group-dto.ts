@@ -1,3 +1,5 @@
+import type { GroupMember, GroupPermission } from '@/types';
+
 class GroupDto {
   id: number;
 
@@ -5,9 +7,9 @@ class GroupDto {
 
   token: string;
 
-  members: Record<number, number>;
+  members: GroupMember[];
 
-  permissions: Record<string, boolean>;
+  permissions: GroupPermission[];
 }
 
 export default GroupDto;

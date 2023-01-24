@@ -20,6 +20,10 @@ export enum GroupPermissionEnum {
 
 }
 
+export enum GroupMemberEnum {
+
+}
+
 export enum CommandTypeEnum {
   Conversation = 'conversation',
   Command = 'command',
