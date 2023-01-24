@@ -1,6 +1,6 @@
 import VkBot from 'node-vk-bot-api';
 
-export class VkClient {
+class VkClient {
   private bot: VkBot;
 
   private groupId: number;
@@ -82,3 +82,5 @@ export class VkClient {
     return ctx.message.peer_id !== ctx.message.from_id;
   }
 }
+
+export default VkClient;
