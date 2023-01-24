@@ -40,6 +40,22 @@ abstract class BaseCommand {
 
     return args;
   }
+
+  formCommandInfo(detail: boolean = false): string {
+    const args = this.getArguments().sort((first, second) => first.position - second.position);
+    const argsInfo = args.map((arg) => {
+      return `<${arg.isOptional ? '?' : ''}${arg.alias}${arg.isLong ? '...' : ''}${detail ? ` - ${arg.description}` : ''}>`;
+    }).join(detail ? '\n' : ' ');
+
+    let commandInfo = `/${this.getName()}`;
+    if (detail) {
+      commandInfo += ` - ${this.getDescription()}\n${this.getUsage()}\n${argsInfo}`;
+    } else {
+      commandInfo += ` ${argsInfo} - ${this.getDescription()}`;
+    }
+
+    return commandInfo;
+  }
 }
 
 export default BaseCommand;
