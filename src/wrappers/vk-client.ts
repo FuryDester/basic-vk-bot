@@ -77,4 +77,8 @@ export class VkClient {
   execute(method: string, params: Record<string, unknown>): Promise<Record<string, unknown>> {
     return this.getBotInstance().execute(method, params);
   }
+
+  isConversationMessage(ctx: VkBotContext): boolean {
+    return ctx.message.peer_id !== ctx.message.from_id;
+  }
 }
