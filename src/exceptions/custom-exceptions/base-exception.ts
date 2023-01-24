@@ -21,7 +21,9 @@ abstract class BaseException extends Error {
     this.name = this.getName();
   }
 
-  protected abstract getName(): string;
+  protected getName(): string {
+    return this.constructor.name;
+  }
 
   /**
    * Return all options that can be in exception

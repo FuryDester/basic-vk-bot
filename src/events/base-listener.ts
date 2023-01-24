@@ -4,7 +4,7 @@ abstract class BaseListener {
   protected next: () => unknown;
 
   protected beforeHandle(data: VkBotContext): void {
-    Logger.info(`Event ${this.constructor.name} received. Data: ${JSON.stringify(data)}`);
+    Logger.info(`Handler ${this.constructor.name} triggered. Data: ${JSON.stringify(data)}`);
   }
 
   handle(data: VkBotContext, next?: () => unknown): void {
