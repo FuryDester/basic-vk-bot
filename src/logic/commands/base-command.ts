@@ -1,8 +1,45 @@
-import type { GroupPermission } from '@/types';
+import type { GroupPermission, CommandType, GroupMemberPermission } from '@/types';
+import { GroupPermissionEnum, GroupMemberPermissionEnum } from '@/enums';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
+import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
+import GroupDto from '@/data-transfer-objects/models/group-dto';
 
 abstract class BaseCommand {
   abstract getGroupPermissions(): GroupPermission[];
+
+  abstract getGroupMemberPermissions(): GroupMemberPermission[];
+
+  canExecute(group: GroupDto, user: GroupMemberDto): boolean {
+    const requiredGroupPermissions = this.getGroupPermissions();
+    const requiredGroupMemberPermissions = this.getGroupMemberPermissions();
+
+    if (
+      (!group.permissions.length && requiredGroupPermissions.length)
+      || (!user.permissions.length && requiredGroupMemberPermissions.length)
+    ) {
+      return false;
+    }
+
+    // Checking group permissions
+    if (
+      requiredGroupPermissions.filter((permission) => !group.permissions.includes(permission)).length
+      && !group.permissions.includes(GroupPermissionEnum.All)
+    ) {
+      return false;
+    }
+
+    // Checking group member permissions
+    if (
+      requiredGroupMemberPermissions.filter((permission) => !user.permissions.includes(permission)).length
+      && !user.permissions.includes(GroupMemberPermissionEnum.All)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  abstract getCommandType(): CommandType;
 
   abstract getName(): string;
 

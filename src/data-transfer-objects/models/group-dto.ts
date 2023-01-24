@@ -1,4 +1,4 @@
-import type { GroupMember, GroupPermission } from '@/types';
+import type { GroupMemberPermission, GroupPermission } from '@/types';
 
 class GroupDto {
   id: number;
@@ -7,7 +7,7 @@ class GroupDto {
 
   token: string;
 
-  members: GroupMember[];
+  members: GroupMemberPermission[];
 
   permissions: GroupPermission[];
 }

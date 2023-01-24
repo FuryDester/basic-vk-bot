@@ -17,11 +17,11 @@ export enum LogLevelEnum {
 }
 
 export enum GroupPermissionEnum {
-
+  All = 'all',
 }
 
-export enum GroupMemberEnum {
-
+export enum GroupMemberPermissionEnum {
+  All = 'all',
 }
 
 export enum CommandTypeEnum {
