@@ -60,7 +60,6 @@ class Logger {
   private static logToFilesystem(level: LogLevel, message: string): void {
     try {
       const currentMoment = moment();
-      console.log(path);
       const logPath = path.resolve(__dirname, `../../logs/${currentMoment.format('YYYY-MM-DD')}.log`);
 
       if (!existsSync(logPath)) {
