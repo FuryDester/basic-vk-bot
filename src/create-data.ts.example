@@ -12,7 +12,7 @@ import Logger from '@/wrappers/logger';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 
 databaseClient.afterAvailability(() => {
-  Logger.info('Starting nvmfilling database...');
+  Logger.info('Starting filling database...');
 
   const groupsData = (new GroupsData()).getTable();
   const groupDto = new GroupDto();
