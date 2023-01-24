@@ -19,3 +19,8 @@ export enum LogLevelEnum {
 export enum GroupPermissionEnum {
 
 }
+
+export enum CommandTypeEnum {
+  Conversation = 'conversation',
+  Command = 'command',
+}
