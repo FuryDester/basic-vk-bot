@@ -14,6 +14,7 @@ import GroupDto from '@/data-transfer-objects/models/group-dto';
 import { VkClient } from '@/wrappers/vk-client';
 import VkBotPollingException from '@/exceptions/custom-exceptions/vk-bot-polling-exception';
 import Listeners from '@/events/listeners';
+import * as process from 'process';
 
 let clients = [];
 databaseClient.afterAvailability(() => {
@@ -26,7 +27,9 @@ databaseClient.afterAvailability(() => {
     const client = new VkClient(group.id, group.token, false);
     Object.keys(Listeners).forEach((listenerName: string) => {
       // Registering event handlers
-      client.event(listenerName, Listeners[listenerName].handle);
+      client.event(listenerName, (ctx, next) => {
+        Listeners[listenerName].handle(ctx, next);
+      });
     });
     Logger.info(`Group: ${group.id} (${group.name}) registered events: ${Object.keys(Listeners).join(', ')}`);
 
@@ -42,14 +45,44 @@ databaseClient.afterAvailability(() => {
     });
     clients.push(client);
   });
+
+  if (!clients.length) {
+    Logger.warning('No groups found. Exiting...');
+    process.exit(0);
+  }
+
+  Logger.info(`Started. Groups registered: ${clients.length}`);
 });
 
+// Exit events
+let onExitCalled = false;
+const onExit = () => {
+  if (!onExitCalled) {
+    onExitCalled = true;
+
+    Logger.info('Stopping...');
+
+    databaseClient.close();
+
+    clients.forEach((client: VkClient) => {
+      client.stop();
+    });
+  }
+};
 process.on('exit', () => {
-  databaseClient.close();
+  onExit();
+});
 
-  clients.forEach((client: VkClient) => {
-    client.stop();
-  });
+process.on('SIGINT', () => {
+  onExit();
+  process.exit(0);
+});
 
-  Logger.info('Stopping...');
+process.on('SIGUSR1', () => {
+  onExit();
+  process.exit(0);
+});
+process.on('SIGUSR2', () => {
+  onExit();
+  process.exit(0);
 });
