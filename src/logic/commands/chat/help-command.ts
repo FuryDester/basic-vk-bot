@@ -52,7 +52,9 @@ class HelpCommand extends BaseCommand {
         return false;
       }
 
-      context.reply(`Информация по команде:\n${command.formCommandInfo(true)}`);
+      context.reply(`Информация по команде:\n${command.formCommandInfo(true)}\nПрописывается в ${
+        command.getCommandType() === CommandTypeEnum.Chat ? 'личных сообщениях' : 'беседе'
+      }.`);
     }
 
     return true;
