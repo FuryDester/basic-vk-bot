@@ -25,12 +25,24 @@ class StatisticsCollector {
     this.eventsRegistered[event]++;
   }
 
+  static getEventsRegistered(): Record<HandlerEvent, number> {
+    return this.eventsRegistered;
+  }
+
   static addException(): void {
     this.exceptions++;
   }
 
+  static getExceptions(): number {
+    return this.exceptions;
+  }
+
   static addLog(): void {
     this.logs++;
+  }
+
+  static getLogs(): number {
+    return this.logs;
   }
 }
 
