@@ -9,6 +9,7 @@ import GroupDto from '@/data-transfer-objects/models/group-dto';
 import CommandInsufficientArguments from '@/exceptions/custom-exceptions/command-insufficient-arguments';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
 import type { HandlerEvent } from '@/types';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -95,12 +96,18 @@ class MessageNewEventListener extends BaseListener {
         `Command ${command.getName()} in group ${group.id} by user ${user.user_id} was not executed. Arguments: ${JSON.stringify(args)}`,
         LogTagEnum.Command,
       );
+
+      StatisticsCollector.addCommandFailure();
+
+      return;
     }
 
     Logger.info(
       `Command ${command.getName()} in group ${group.id} by user ${user.user_id} was executed. Arguments: ${JSON.stringify(args)}`,
       LogTagEnum.Command,
     );
+
+    StatisticsCollector.addCommandExecution();
   }
 
   handleEvent(data: VkBotContext): void {

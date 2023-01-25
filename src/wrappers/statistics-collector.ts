@@ -9,6 +9,10 @@ class StatisticsCollector {
 
   protected static logs: number = 0;
 
+  protected static commandsExecuted: number = 0;
+
+  protected static commandsFailed: number = 0;
+
   static getStartTime(): Date {
     return this.startTime;
   }
@@ -43,6 +47,22 @@ class StatisticsCollector {
 
   static getLogs(): number {
     return this.logs;
+  }
+
+  static addCommandExecution(): void {
+    this.commandsExecuted++;
+  }
+
+  static getCommandsExecuted(): number {
+    return this.commandsExecuted;
+  }
+
+  static addCommandFailure(): void {
+    this.commandsFailed++;
+  }
+
+  static getCommandsFailed(): number {
+    return this.commandsFailed;
   }
 }
 

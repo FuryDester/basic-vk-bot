@@ -43,6 +43,8 @@ class HealthcheckCommand extends BaseCommand {
     answerString += `Записей в логах с момента старта: ${StatisticsCollector.getLogs()}\n`;
     answerString += `Группа: ${group.name} (${group.id})\n`;
     answerString += `Пользователь: ${user.user_id}\n`;
+    answerString += `Команд выполнено: ${StatisticsCollector.getCommandsExecuted()}\n`;
+    answerString += `Команд провалено: ${StatisticsCollector.getCommandsFailed()}\n`;
 
     const events = StatisticsCollector.getEventsRegistered();
     if (events) {
