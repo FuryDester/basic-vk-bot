@@ -66,7 +66,7 @@ class HelpCommand extends BaseCommand {
       position    : 1,
       isLong      : false,
       isOptional  : true,
-      alias       : 'command',
+      alias       : 'команда',
       description : 'Команда, о которой нужно получить информацию.',
     });
 
