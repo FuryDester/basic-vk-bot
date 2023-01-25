@@ -3,6 +3,7 @@ import { GroupPermissionEnum, GroupMemberPermissionEnum } from '@/enums';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
+import CommandInsufficientArguments from '@/exceptions/custom-exceptions/command-insufficient-arguments';
 
 abstract class BaseCommand {
   abstract getGroupPermissions(): GroupPermission[];
@@ -43,7 +44,7 @@ abstract class BaseCommand {
    * Executes command
    * @returns true if command was executed successfully, false otherwise
    */
-  abstract execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], additionalInfo: unknown): boolean;
+  abstract execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], additionalInfo?: unknown): boolean;
 
   abstract getCommandType(): CommandType;
 
@@ -80,6 +81,12 @@ abstract class BaseCommand {
         }
       }
     });
+
+    // Checking if all required arguments are present
+    const missingArgument = args.find((arg) => !arg.isOptional && !arg.argumentValue);
+    if (missingArgument) {
+      throw new CommandInsufficientArguments('Not all arguments presented in command.', { argument: missingArgument.alias });
+    }
 
     return args;
   }
