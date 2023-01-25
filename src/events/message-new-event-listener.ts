@@ -10,11 +10,13 @@ import CommandInsufficientArguments from '@/exceptions/custom-exceptions/command
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
 import type { HandlerEvent } from '@/types';
 import StatisticsCollector from '@/wrappers/statistics-collector';
+import HelpCommand from '@/logic/commands/chat/help-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
     return [
       new HealthcheckCommand(),
+      new HelpCommand(),
     ];
   }
 
@@ -33,7 +35,11 @@ class MessageNewEventListener extends BaseListener {
   }
 
   // TODO
-  private getAdditionalInfoByCommand(_command: BaseCommand, _args: CommandArgumentDto[]): unknown {
+  private getAdditionalInfoByCommand(command: BaseCommand, _args: CommandArgumentDto[]): unknown {
+    if (command.getName() === 'help') {
+      return this.getCommands();
+    }
+
     return {};
   }
 
