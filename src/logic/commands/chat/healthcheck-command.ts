@@ -36,11 +36,13 @@ class HealthcheckCommand extends BaseCommand {
     return 'При использовании команды выводит сообщение о статусе работоспособности бота.';
   }
 
-  execute(context: VkBotContext, _group: GroupDto, _user: GroupMemberDto, _args: CommandArgumentDto[], _additionalInfo: unknown): boolean {
+  execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, _args: CommandArgumentDto[], _additionalInfo: unknown): boolean {
     let answerString = 'Статистические данные бота:\n';
     answerString += `Время запуска: ${moment(StatisticsCollector.getStartTime()).format('DD.MM.YYYY HH:mm:ss')}\n`;
     answerString += `Исключения: ${StatisticsCollector.getExceptions()}\n`;
     answerString += `Записей в логах с момента старта: ${StatisticsCollector.getLogs()}\n`;
+    answerString += `Группа: ${group.name} (${group.id})\n`;
+    answerString += `Пользователь: ${user.user_id}\n`;
 
     const events = StatisticsCollector.getEventsRegistered();
     if (events) {
