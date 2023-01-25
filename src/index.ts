@@ -25,10 +25,10 @@ databaseClient.afterAvailability(() => {
     Logger.info(`Group: ${group.id} (${group.name}) found`);
 
     const client = new VkClient(group.id, group.token, false);
-    Object.keys(Listeners).forEach((listenerName: string) => {
+    Listeners.forEach((listener) => {
       // Registering event handlers
-      client.event(listenerName, (ctx, next) => {
-        Listeners[listenerName].handle(ctx, next);
+      client.event(listener.getEventName(), (ctx, next) => {
+        listener.handle(ctx, next);
       });
     });
     Logger.info(`Group: ${group.id} (${group.name}) registered events: ${Object.keys(Listeners).join(', ')}`);

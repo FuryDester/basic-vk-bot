@@ -34,3 +34,7 @@ export enum CommandTypeEnum {
   Conversation = 'conversation',
   Chat = 'chat',
 }
+
+export enum HandlerEventEnum {
+  MessageNew = 'message_new',
+}
