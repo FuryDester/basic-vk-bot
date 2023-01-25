@@ -18,7 +18,7 @@ abstract class BaseModel {
 
   protected abstract getDto(): BaseDto & object;
 
-  public formDto(data: object & LokiObj) {
+  public formDto(data: object & LokiObj): BaseDto & object {
     const dto = this.getDto();
     const formableData = data;
     // Removing LokiJS internal properties
