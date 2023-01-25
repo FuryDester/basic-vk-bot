@@ -8,7 +8,7 @@ import Logger from '@/wrappers/logger';
 
 class HelpCommand extends BaseCommand {
   execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], additionalInfo?: unknown): boolean {
-    const commandName = args.find(arg => arg.alias === 'command')?.argumentValue;
+    const commandName = args.find(arg => arg.position === 1)?.argumentValue;
     // Summary data
     if (!commandName) {
       const commands = (additionalInfo as BaseCommand[]).filter(command => command.canExecute(group, user) && command.getName() !== this.getName());
