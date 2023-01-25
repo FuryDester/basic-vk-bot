@@ -6,7 +6,7 @@ abstract class BaseException extends Error {
 
     const keys = this.getOptionsKeys();
     Object.keys(keys).forEach((key: string) => {
-      if (options[key] !== undefined) {
+      if (options[key] === undefined) {
         delete options[key];
       }
 
