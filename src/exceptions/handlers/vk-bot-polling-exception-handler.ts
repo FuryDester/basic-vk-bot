@@ -4,7 +4,7 @@ import Logger from '@/wrappers/logger';
 
 class VkBotPollingExceptionHandler extends BaseExceptionHandler {
   handle(err: VkBotPollingException): void {
-    Logger.error(`VkBotPollingException: ${err.message}, group id: ${err.getOptions().id}, data: ${JSON.stringify(err.getOptions().data || '')}`);
+    Logger.error(`VkBotPollingException: ${err.message}, group id: ${err.getOptions().id}, data: ${err.getOptions().data}`);
   }
 }
 
