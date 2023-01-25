@@ -20,7 +20,18 @@ class HelpCommand extends BaseCommand {
         return false;
       }
 
-      context.reply(`Доступные команды:\n${commands.map(command => command.formCommandInfo()).join('\n')}`);
+      const chatCommands = commands.filter(command => command.getCommandType() === CommandTypeEnum.Chat);
+      const conversationCommands = commands.filter(command => command.getCommandType() === CommandTypeEnum.Conversation);
+      let finalString = 'Доступные команды:\n';
+      if (chatCommands.length) {
+        finalString += ` * Личные сообщения:\n${chatCommands.map(command => command.formCommandInfo()).join('\n')}\n`;
+      }
+
+      if (conversationCommands.length) {
+        finalString += `${chatCommands.length ? '\n' : ''} * Беседа:\n${conversationCommands.map(command => command.formCommandInfo()).join('\n')}`;
+      }
+
+      context.reply(finalString);
     } else {
       // Detail data
       const command = (additionalInfo as BaseCommand[]).find(cmd => cmd.getName().toLowerCase() === commandName.toLowerCase());
