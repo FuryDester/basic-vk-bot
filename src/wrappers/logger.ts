@@ -6,6 +6,7 @@ import { appendFileSync, writeFileSync, existsSync } from 'fs';
 import * as path from 'path';
 import LogDto from '@/data-transfer-objects/misc/log-dto';
 import Logs from '@/models/logs';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 class Logger {
   public static debug(message: string, tag: LogTag = LogTagEnum.System, channel: LogChannel = LogChannelEnum.All): void {
@@ -41,6 +42,8 @@ class Logger {
   }
 
   public static log(level: LogLevel, message: string, tag: LogTag = LogTagEnum.System, channel: LogChannel = LogChannelEnum.All): void {
+    StatisticsCollector.addLog();
+
     if (channel === LogChannelEnum.All || channel === LogChannelEnum.Console) {
       this.logToConsole(level, tag, message);
     }

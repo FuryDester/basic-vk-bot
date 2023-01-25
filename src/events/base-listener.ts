@@ -1,6 +1,7 @@
 import Logger from '@/wrappers/logger';
 import { LogTagEnum } from '@/enums';
 import type { HandlerEvent } from '@/types';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 abstract class BaseListener {
   protected next: () => unknown;
@@ -9,6 +10,8 @@ abstract class BaseListener {
 
   protected beforeHandle(data: VkBotContext): void {
     Logger.info(`Handler ${this.constructor.name} triggered. Data: ${JSON.stringify(data)}`, LogTagEnum.Handler);
+
+    StatisticsCollector.addNewEvent(this.getEventName());
   }
 
   handle(data: VkBotContext, next?: () => unknown): void {

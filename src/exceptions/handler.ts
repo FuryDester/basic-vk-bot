@@ -6,6 +6,7 @@ import { LogChannelEnum, LogTagEnum } from '@/enums';
 import DatabaseNotAvailableException from '@/exceptions/custom-exceptions/database-not-available-exception';
 import DatabaseNotAvailableExceptionHandler from '@/exceptions/handlers/database-not-available-handler';
 import * as process from 'process';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 const exceptionHandlers = [
   [VkBotPollingException, VkBotPollingExceptionHandler],
@@ -13,6 +14,8 @@ const exceptionHandlers = [
 ];
 
 process.on('uncaughtException', (error: Error) => {
+  StatisticsCollector.addException();
+
   let foundHandler = false;
   if (error instanceof BaseException) {
     exceptionHandlers.forEach((item) => {

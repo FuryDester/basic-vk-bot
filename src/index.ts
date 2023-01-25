@@ -15,10 +15,13 @@ import VkClient from '@/wrappers/vk-client';
 import VkBotPollingException from '@/exceptions/custom-exceptions/vk-bot-polling-exception';
 import Listeners from '@/events/listeners';
 import * as process from 'process';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 let clients = [];
 databaseClient.afterAvailability(() => {
   Logger.info('Starting up...');
+
+  StatisticsCollector.setStartTime(new Date());
 
   const groupsData = (new GroupsData()).getTable();
   groupsData.find().forEach((group: GroupDto & object & LokiObj) => {
