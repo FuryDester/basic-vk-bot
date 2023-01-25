@@ -1,6 +1,7 @@
 import {
   LogLevelEnum,
   LogChannelEnum,
+  LogTagEnum,
   GroupPermissionEnum,
   GroupMemberPermissionEnum,
   CommandTypeEnum,
@@ -9,6 +10,8 @@ import {
 export type LogLevel = `${LogLevelEnum}`;
 
 export type LogChannel = `${LogChannelEnum}`;
+
+export type LogTag = `${LogTagEnum}`;
 
 export type GroupPermission = `${GroupPermissionEnum}`;
 

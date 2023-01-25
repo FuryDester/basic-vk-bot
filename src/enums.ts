@@ -16,6 +16,12 @@ export enum LogLevelEnum {
   Emergency = 'emergency',
 }
 
+export enum LogTagEnum {
+  Command = 'command',
+  System = 'system',
+  Handler = 'handler',
+}
+
 export enum GroupPermissionEnum {
   All = 'all',
 }
@@ -26,5 +32,5 @@ export enum GroupMemberPermissionEnum {
 
 export enum CommandTypeEnum {
   Conversation = 'conversation',
-  Command = 'command',
+  Chat = 'chat',
 }

@@ -1,10 +1,11 @@
 import Logger from '@/wrappers/logger';
+import { LogTagEnum } from '@/enums';
 
 abstract class BaseListener {
   protected next: () => unknown;
 
   protected beforeHandle(data: VkBotContext): void {
-    Logger.info(`Handler ${this.constructor.name} triggered. Data: ${JSON.stringify(data)}`);
+    Logger.info(`Handler ${this.constructor.name} triggered. Data: ${JSON.stringify(data)}`, LogTagEnum.Handler);
   }
 
   handle(data: VkBotContext, next?: () => unknown): void {

@@ -11,7 +11,7 @@ import { databaseClient } from '@/wrappers/database-client';
 import GroupsData from '@/models/groups-data';
 import Logger from '@/wrappers/logger';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
-import { VkClient } from '@/wrappers/vk-client';
+import VkClient from '@/wrappers/vk-client';
 import VkBotPollingException from '@/exceptions/custom-exceptions/vk-bot-polling-exception';
 import Listeners from '@/events/listeners';
 import * as process from 'process';

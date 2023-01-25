@@ -2,9 +2,10 @@ import VkBotPollingException from '@/exceptions/custom-exceptions/vk-bot-polling
 import VkBotPollingExceptionHandler from '@/exceptions/handlers/vk-bot-polling-exception-handler';
 import BaseException from '@/exceptions/custom-exceptions/base-exception';
 import Logger from '@/wrappers/logger';
-import { LogChannelEnum } from '@/enums';
+import { LogChannelEnum, LogTagEnum } from '@/enums';
 import DatabaseNotAvailableException from '@/exceptions/custom-exceptions/database-not-available-exception';
 import DatabaseNotAvailableExceptionHandler from '@/exceptions/handlers/database-not-available-handler';
+import * as process from 'process';
 
 const exceptionHandlers = [
   [VkBotPollingException, VkBotPollingExceptionHandler],
@@ -23,7 +24,7 @@ process.on('uncaughtException', (error: Error) => {
   }
 
   if (!foundHandler) {
-    Logger.emergency(`Unhandled error: ${error.message}, stack: ${error.stack}`, LogChannelEnum.Database);
+    Logger.emergency(`Unhandled error: ${error.message}, stack: ${error.stack}`, LogTagEnum.System, LogChannelEnum.Database);
     process.exit(1);
   }
 });
