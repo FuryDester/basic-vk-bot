@@ -3,7 +3,7 @@ import type { HandlerEvent } from '@/types';
 class StatisticsCollector {
   protected static startTime: Date;
 
-  protected static eventsRegistered: Record<HandlerEvent, number>;
+  protected static eventsRegistered: Record<HandlerEvent, number> | {} = {};
 
   protected static exceptions: number = 0;
 
@@ -25,7 +25,7 @@ class StatisticsCollector {
     this.eventsRegistered[event]++;
   }
 
-  static getEventsRegistered(): Record<HandlerEvent, number> {
+  static getEventsRegistered(): Record<HandlerEvent, number> | {} {
     return this.eventsRegistered;
   }
 
