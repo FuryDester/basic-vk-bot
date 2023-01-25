@@ -2,18 +2,23 @@ import BaseListener from '@/events/base-listener';
 import BaseCommand from '@/logic/commands/base-command';
 import HealthcheckCommand from '@/logic/commands/chat/healthcheck-command';
 import VkClient from '@/wrappers/vk-client';
-import { CommandTypeEnum, LogTagEnum } from '@/enums';
+import { CommandTypeEnum, HandlerEventEnum, LogTagEnum } from '@/enums';
 import GroupsData from '@/models/groups-data';
 import Logger from '@/wrappers/logger';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 import CommandInsufficientArguments from '@/exceptions/custom-exceptions/command-insufficient-arguments';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
+import type { HandlerEvent } from '@/types';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
     return [
       new HealthcheckCommand(),
     ];
+  }
+
+  getEventName(): HandlerEvent {
+    return HandlerEventEnum.MessageNew;
   }
 
   private getCommandByText(text: string, parsedCommands?: BaseCommand[]): BaseCommand | null {
