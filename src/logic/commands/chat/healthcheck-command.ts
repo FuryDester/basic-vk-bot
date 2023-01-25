@@ -4,6 +4,8 @@ import type { CommandType, GroupMemberPermission, GroupPermission } from '@/type
 import { CommandTypeEnum } from '@/enums';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
+import * as moment from 'moment';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 class HealthcheckCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
@@ -35,7 +37,21 @@ class HealthcheckCommand extends BaseCommand {
   }
 
   execute(context: VkBotContext, _group: GroupDto, _user: GroupMemberDto, _args: CommandArgumentDto[], _additionalInfo: unknown): boolean {
-    context.reply('Бот работает! // TODO: add more info');
+    let answerString = 'Статистические данные бота:\n';
+    answerString += `Время запуска: ${moment(StatisticsCollector.getStartTime()).format('DD.MM.YYYY HH:mm:ss')}\n`;
+    answerString += `Исключения: ${StatisticsCollector.getExceptions()}\n`;
+    answerString += `Записей в логах с момента старта: ${StatisticsCollector.getLogs()}\n`;
+
+    const events = StatisticsCollector.getEventsRegistered();
+    if (events) {
+      answerString += 'Полученные события:\n';
+
+      for (const [eventName, count] of Object.entries(events)) {
+        answerString += ` * ${eventName}: ${count}\n`;
+      }
+    }
+
+    context.reply(answerString);
 
     return true;
   }
