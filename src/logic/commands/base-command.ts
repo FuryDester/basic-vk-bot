@@ -30,14 +30,8 @@ abstract class BaseCommand {
     }
 
     // Checking group member permissions
-    if (
-      requiredGroupMemberPermissions.find((permission) => !user.permissions.includes(permission))
-      && !user.permissions.includes(GroupMemberPermissionEnum.All)
-    ) {
-      return false;
-    }
-
-    return true;
+    return !(requiredGroupMemberPermissions.find((permission) => !user.permissions.includes(permission))
+      && !user.permissions.includes(GroupMemberPermissionEnum.All));
   }
 
   /**

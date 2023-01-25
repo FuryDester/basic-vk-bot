@@ -3,7 +3,7 @@ import GroupDto from '@/data-transfer-objects/models/group-dto';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
 import type { CommandType, GroupMemberPermission, GroupPermission } from '@/types';
-import { CommandTypeEnum, LogTagEnum } from '@/enums';
+import { CommandTypeEnum, GroupPermissionEnum, LogTagEnum } from '@/enums';
 import Logger from '@/wrappers/logger';
 
 class HelpCommand extends BaseCommand {
@@ -73,7 +73,7 @@ class HelpCommand extends BaseCommand {
   }
 
   getGroupPermissions(): GroupPermission[] {
-    return [];
+    return [GroupPermissionEnum.ChatCommands];
   }
 
   getName(): string {

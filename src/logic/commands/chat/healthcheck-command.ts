@@ -1,7 +1,7 @@
 import BaseCommand from '@/logic/commands/base-command';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
 import type { CommandType, GroupMemberPermission, GroupPermission } from '@/types';
-import { CommandTypeEnum } from '@/enums';
+import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum } from '@/enums';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 import * as moment from 'moment';
@@ -21,11 +21,11 @@ class HealthcheckCommand extends BaseCommand {
   }
 
   getGroupMemberPermissions(): GroupMemberPermission[] {
-    return [];
+    return [GroupMemberPermissionEnum.CommandHealthcheck];
   }
 
   getGroupPermissions(): GroupPermission[] {
-    return [];
+    return [GroupPermissionEnum.ChatCommands];
   }
 
   getName(): string {
