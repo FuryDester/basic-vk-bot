@@ -22,7 +22,7 @@ abstract class BaseCommand {
 
     // Checking group permissions
     if (
-      requiredGroupPermissions.filter((permission) => !group.permissions.includes(permission)).length
+      requiredGroupPermissions.find((permission) => !group.permissions.includes(permission))
       && !group.permissions.includes(GroupPermissionEnum.All)
     ) {
       return false;
@@ -30,7 +30,7 @@ abstract class BaseCommand {
 
     // Checking group member permissions
     if (
-      requiredGroupMemberPermissions.filter((permission) => !user.permissions.includes(permission)).length
+      requiredGroupMemberPermissions.find((permission) => !user.permissions.includes(permission))
       && !user.permissions.includes(GroupMemberPermissionEnum.All)
     ) {
       return false;
@@ -38,6 +38,12 @@ abstract class BaseCommand {
 
     return true;
   }
+
+  /**
+   * Executes command
+   * @returns true if command was executed successfully, false otherwise
+   */
+  abstract execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], additionalInfo: unknown): boolean;
 
   abstract getCommandType(): CommandType;
 
