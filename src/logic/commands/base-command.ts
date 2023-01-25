@@ -93,7 +93,7 @@ abstract class BaseCommand {
 
     let commandInfo = `/${this.getName()}`;
     if (detail) {
-      commandInfo += ` - ${this.getDescription()}\n${this.getUsage()}\nПараметры:\n${argsInfo}`;
+      commandInfo += ` - ${this.getDescription()}\n${this.getUsage()}\n${argsInfo.length ? 'Параметры:\n' : ''}${argsInfo}`;
     } else {
       commandInfo += ` ${argsInfo} - ${this.getDescription()}`;
     }
