@@ -1,5 +1,4 @@
 import BaseModel from '@/models/base-model';
-import BaseDto from '@/data-transfer-objects/base-dto';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 
 class GroupsData extends BaseModel {
@@ -11,7 +10,7 @@ class GroupsData extends BaseModel {
     return { indices: ['id'] };
   }
 
-  protected getDto(): BaseDto & object {
+  protected getDto(): GroupDto {
     return new GroupDto();
   }
 }
