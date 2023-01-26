@@ -25,11 +25,14 @@ export enum LogTagEnum {
 export enum GroupPermissionEnum {
   All = 'all',
   ChatCommands = 'chat_commands',
+  ConversationCommands = 'conversation_commands',
 }
 
 export enum GroupMemberPermissionEnum {
   All = 'all',
   CommandHealthcheck = 'command_healthcheck',
+  CommandWarn = 'command_warn',
+  CommandWarnAdmins = 'command_warn_admins',
 }
 
 export enum CommandTypeEnum {
