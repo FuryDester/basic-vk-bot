@@ -6,10 +6,12 @@ import DatabaseNotAvailableException from '@/exceptions/custom-exceptions/databa
 import DatabaseNotAvailableExceptionHandler from '@/exceptions/handlers/database-not-available-handler';
 import * as process from 'process';
 import StatisticsCollector from '@/wrappers/statistics-collector';
+import VkBotApiException from '@/exceptions/custom-exceptions/vk-bot-api-exception';
 
 const exceptionHandlers = [
   [VkBotPollingException, VkBotPollingExceptionHandler],
   [DatabaseNotAvailableException, DatabaseNotAvailableExceptionHandler],
+  [VkBotApiException, VkBotPollingExceptionHandler],
 ];
 
 process.on('uncaughtException', (error: Error) => {
