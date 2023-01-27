@@ -1,4 +1,6 @@
 import VkBot from 'node-vk-bot-api';
+import UserDto from '@/data-transfer-objects/api/user-dto';
+import VkBotApiException from '@/exceptions/custom-exceptions/vk-bot-api-exception';
 
 class VkClient {
   private bot: VkBot;
@@ -76,6 +78,30 @@ class VkClient {
 
   execute(method: string, params: Record<string, unknown>): Promise<Record<string, unknown>> {
     return this.getBotInstance().execute(method, params);
+  }
+
+  async getUsersInfo(userIds: number[]): Promise<UserDto[]> {
+    const method = 'users.get';
+    const params = {
+      user_ids: userIds.join(','),
+    };
+
+    try {
+      const result = await this.execute(method, params);
+
+      return (result.response as UserDto[]).map((item) => {
+        const userDto = new UserDto();
+        Object.assign(userDto, item);
+
+        return userDto;
+      });
+    } catch (e) {
+      throw new VkBotApiException(e.message, { method, params });
+    }
+  }
+
+  async getUserInfo(userId: number): Promise<UserDto> {
+    return (await this.getUsersInfo([userId]))[0];
   }
 
   static isConversationMessage(ctx: VkBotContext): boolean {
