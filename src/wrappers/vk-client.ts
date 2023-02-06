@@ -102,7 +102,7 @@ class VkClient {
     try {
       const result = await this.execute(method, params);
 
-      return (result.response as UserDto[]).map((item) => {
+      return (result as unknown as UserDto[]).map((item) => {
         const userDto = new UserDto();
         Object.assign(userDto, item);
 
