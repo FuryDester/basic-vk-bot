@@ -35,7 +35,7 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
     return false;
   }
 
-  if (userDto.last_mute.expires_at > Date.now()) {
+  if (userDto.last_mute.expires_at < Date.now()) {
     Logger.info(notMutedMessage, LogTagEnum.System);
     return false;
   }
@@ -54,14 +54,14 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
       {
         message: `Вами был получен мут. Он истекает в ${
           moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss')
-        }, причина: ${userDto.last_mute.reason}, выдан модератором: ${
+        }, причина: ${userDto.last_mute.reason}, выдан модератором ${
           getUserTap(userDto.last_mute.given_by, userName)
         } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}`,
         forward_messages: userDto.last_mute.message_id,
       },
     );
   } catch (e) {
-    Logger.warning(`Failed to send message to user ${ctx.message.from_id}, error: ${e.message}`, LogTagEnum.Command);
+    Logger.warning(`Failed to send message to user ${ctx.message.from_id}, error: ${e.response.error_msg || e.message}`, LogTagEnum.Command);
   }
 
   await usedClient.deleteMessage(ctx.message.peer_id, null, ctx.message.conversation_message_id);
