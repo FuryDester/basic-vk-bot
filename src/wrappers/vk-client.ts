@@ -68,13 +68,26 @@ class VkClient {
       });
     }
 
-    return this.getBotInstance().sendMessage(
-      userId as number | string,
-      finalMessage as unknown as string,
-      attachment,
-      keyboard,
-      sticker,
-    );
+    try {
+      return this.getBotInstance().sendMessage(
+        userId as number | string,
+        finalMessage as unknown as string,
+        attachment,
+        keyboard,
+        sticker,
+      );
+    } catch (e) {
+      throw new VkBotApiException(e.response.error_msg, {
+        method : 'messages.send',
+        params : {
+          user_id : userId,
+          message : finalMessage,
+          attachment,
+          keyboard,
+          sticker,
+        },
+      });
+    }
   }
 
   deleteMessage(
@@ -82,12 +95,24 @@ class VkClient {
     messageIds?: number | string | number[] | string[],
     conversationMessageIds?: number | string | number[] | string[],
   ): Promise <unknown> {
-    return this.getBotInstance().execute('messages.delete', {
-      message_ids    : Array.isArray(messageIds) ? messageIds.join(',') : messageIds,
-      delete_for_all : 1,
-      peer_id        : peerId,
-      cmids          : Array.isArray(conversationMessageIds) ? conversationMessageIds.join(',') : conversationMessageIds,
-    });
+    try {
+      return this.getBotInstance().execute('messages.delete', {
+        message_ids    : Array.isArray(messageIds) ? messageIds.join(',') : messageIds,
+        delete_for_all : 1,
+        peer_id        : peerId,
+        cmids          : Array.isArray(conversationMessageIds) ? conversationMessageIds.join(',') : conversationMessageIds,
+      });
+    } catch (e) {
+      throw new VkBotApiException(e.response.error_msg, {
+        method : 'messages.delete',
+        params : {
+          message_ids    : messageIds,
+          delete_for_all : 1,
+          peer_id        : peerId,
+          cmids          : conversationMessageIds,
+        },
+      });
+    }
   }
 
   event(triggers: string, ...middlewares: VkBotMiddleware[]): VkClient {
