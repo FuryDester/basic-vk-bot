@@ -49,10 +49,16 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
   const userInfo = await usedClient.getUserInfo(userDto.last_mute.given_by);
   const userName = `${userInfo.first_name} ${userInfo.last_name}`;
   try {
+    await usedClient.deleteMessage(ctx.message.peer_id, null, ctx.message.conversation_message_id);
+  } catch (e) {
+    Logger.warning(`Failed to delete message from user ${ctx.message.from_id}, error: ${e.response.error_msg || e.message}`, LogTagEnum.System);
+  }
+
+  try {
     await usedClient.sendMessage(
       ctx.message.from_id,
       {
-        message: `Вами был получен мут. Он истекает в ${
+        message: `Вами был получен мут, а потому отправленное Вами сообщение было удалено. Он истекает в ${
           moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss')
         }, выдан модератором ${
           getUserTap(userDto.last_mute.given_by, userName)
@@ -66,8 +72,6 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
   } catch (e) {
     Logger.warning(`Failed to send message to user ${ctx.message.from_id}, error: ${e.response.error_msg || e.message}`, LogTagEnum.Command);
   }
-
-  await usedClient.deleteMessage(ctx.message.peer_id, null, ctx.message.conversation_message_id);
 
   return true;
 };
