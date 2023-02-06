@@ -7,7 +7,7 @@ import VkClient from '@/wrappers/vk-client';
 import * as moment from 'moment';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 
-const NOT_MUTED_LOG_MESSAGE = 'User %s is not muted';
+const NOT_MUTED_LOG_MESSAGE = 'User %s1 is not muted, group id: %s2, conversation id: %s3';
 
 export default async (ctx: VkBotContext): Promise<boolean> => {
   const conversationMemberModel = new ConversationMembers();
@@ -19,7 +19,10 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
     conversation_id : ctx.message.peer_id,
   } as object);
 
-  const notMutedMessage = NOT_MUTED_LOG_MESSAGE.replace('%s', ctx.message.from_id.toString());
+  const notMutedMessage = NOT_MUTED_LOG_MESSAGE
+    .replace('%s1', ctx.message.from_id.toString())
+    .replace('%s2', ctx.groupId.toString())
+    .replace('%s3', ctx.message.peer_id.toString());
 
   if (!conversationUser) {
     Logger.info(notMutedMessage, LogTagEnum.System);
