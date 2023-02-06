@@ -28,7 +28,7 @@ process.on('uncaughtException', (error: Error) => {
   }
 
   if (!foundHandler) {
-    Logger.emergency(`Unhandled error: ${error.stack}`);
+    Logger.emergency(`Unhandled error: ${error.stack}, api message: ${(error as unknown as Record<string, unknown>).error_msg || ''}`);
     process.exit(1);
   }
 });
