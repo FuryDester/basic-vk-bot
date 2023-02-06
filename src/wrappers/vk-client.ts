@@ -70,11 +70,16 @@ class VkClient {
     );
   }
 
-  deleteMessage(messageIds: number | string | number[] | string[], peerId: number | string): Promise <unknown> {
+  deleteMessage(
+    peerId: number | string,
+    messageIds?: number | string | number[] | string[],
+    conversationMessageIds?: number | string | number[] | string[],
+  ): Promise <unknown> {
     return this.getBotInstance().execute('messages.delete', {
       message_ids    : Array.isArray(messageIds) ? messageIds.join(',') : messageIds,
       delete_for_all : 1,
       peer_id        : peerId,
+      cmids          : Array.isArray(conversationMessageIds) ? conversationMessageIds.join(',') : conversationMessageIds,
     });
   }
 
