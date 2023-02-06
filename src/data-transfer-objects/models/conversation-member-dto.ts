@@ -1,5 +1,6 @@
 import BaseDto from '@/data-transfer-objects/base-dto';
 import WarnDto from '@/data-transfer-objects/misc/warn-dto';
+import MuteDto from '@/data-transfer-objects/misc/mute-dto';
 
 class ConversationMemberDto implements BaseDto {
   group_id: number;
@@ -11,6 +12,10 @@ class ConversationMemberDto implements BaseDto {
   conversation_id: number;
 
   warns: WarnDto[];
+
+  mutes: MuteDto[];
+
+  lastMute?: MuteDto;
 }
 
 export default ConversationMemberDto;
