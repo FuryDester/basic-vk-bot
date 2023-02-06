@@ -56,14 +56,14 @@ class VkClient {
 
   sendMessage(
     userId: string | number | string[] | number[],
-    message: string,
+    message: string | object,
     attachment?: string | string[],
     keyboard?: VkBotKeyboard,
     sticker?: string | number,
   ): Promise<{ peer_id: number, message_id: number, conversation_message_id: number, error?: any }> {
     return this.getBotInstance().sendMessage(
       userId as number | string,
-      message,
+      message as unknown as string,
       attachment,
       keyboard,
       sticker,
