@@ -11,6 +11,7 @@ import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dt
 import type { HandlerEvent } from '@/types';
 import StatisticsCollector from '@/wrappers/statistics-collector';
 import HelpCommand from '@/logic/commands/chat/help-command';
+import processUserMute from '@/logic/helpers/conversation/process-user-mute';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -128,7 +129,9 @@ class MessageNewEventListener extends BaseListener {
       return;
     }
 
-
+    if (isConversationMessage) {
+      processUserMute(data);
+    }
   }
 }
 
