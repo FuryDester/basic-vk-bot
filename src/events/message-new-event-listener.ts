@@ -12,12 +12,14 @@ import type { HandlerEvent } from '@/types';
 import StatisticsCollector from '@/wrappers/statistics-collector';
 import HelpCommand from '@/logic/commands/chat/help-command';
 import processUserMute from '@/logic/helpers/conversation/process-user-mute';
+import WarnCommand from '@/logic/commands/conversation/warn-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
     return [
       new HealthcheckCommand(),
       new HelpCommand(),
+      new WarnCommand(),
     ];
   }
 
