@@ -17,7 +17,7 @@ import Listeners from '@/events/listeners';
 import * as process from 'process';
 import StatisticsCollector from '@/wrappers/statistics-collector';
 
-let clients = [];
+export let clients = [];
 databaseClient.afterAvailability(() => {
   Logger.info('Starting up...');
 
@@ -72,6 +72,7 @@ const onExit = () => {
     });
   }
 };
+
 process.on('exit', () => {
   onExit();
 });
