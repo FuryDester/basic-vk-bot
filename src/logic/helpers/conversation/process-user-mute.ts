@@ -54,9 +54,9 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
       {
         message: `Вами был получен мут. Он истекает в ${
           moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss')
-        }, причина: ${userDto.last_mute.reason}, выдан модератором ${
+        }, выдан модератором ${
           getUserTap(userDto.last_mute.given_by, userName)
-        } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}`,
+        } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}. Причина: ${userDto.last_mute.reason}`,
         forward: JSON.stringify({
           peer_id                  : ctx.message.peer_id,
           conversation_message_ids : [userDto.last_mute.message_id],
