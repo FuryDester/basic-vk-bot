@@ -48,29 +48,33 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
 
   const userInfo = await usedClient.getUserInfo(userDto.last_mute.given_by);
   const userName = `${userInfo.first_name} ${userInfo.last_name}`;
+  let sendMessage = true;
   try {
     await usedClient.deleteMessage(ctx.message.peer_id, null, ctx.message.conversation_message_id);
   } catch (e) {
     Logger.warning(`Failed to delete message from user ${ctx.message.from_id}, error: ${e.response.error_msg || e.message}`, LogTagEnum.System);
+    sendMessage = false;
   }
 
-  try {
-    await usedClient.sendMessage(
-      ctx.message.from_id,
-      {
-        message: `Вами был получен мут, а потому отправленное Вами сообщение было удалено. Он истекает в ${
-          moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss')
-        }, выдан модератором ${
-          getUserTap(userDto.last_mute.given_by, userName)
-        } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}. Причина: ${userDto.last_mute.reason}`,
-        forward: JSON.stringify({
-          peer_id                  : ctx.message.peer_id,
-          conversation_message_ids : [userDto.last_mute.message_id],
-        }),
-      },
-    );
-  } catch (e) {
-    Logger.warning(`Failed to send message to user ${ctx.message.from_id}, error: ${e.response.error_msg || e.message}`, LogTagEnum.Command);
+  if (sendMessage) {
+    try {
+      await usedClient.sendMessage(
+        ctx.message.from_id,
+        {
+          message: `Вами был получен мут, а потому отправленное Вами сообщение было удалено. Он истекает в ${
+            moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss')
+          }, выдан модератором ${
+            getUserTap(userDto.last_mute.given_by, userName)
+          } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}. Причина: ${userDto.last_mute.reason}`,
+          forward: JSON.stringify({
+            peer_id                  : ctx.message.peer_id,
+            conversation_message_ids : [userDto.last_mute.message_id],
+          }),
+        },
+      );
+    } catch (e) {
+      Logger.warning(`Failed to send message to user ${ctx.message.from_id}, error: ${e.response.error_msg || e.message}`, LogTagEnum.Command);
+    }
   }
 
   return true;
