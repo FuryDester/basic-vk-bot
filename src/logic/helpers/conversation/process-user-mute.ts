@@ -61,7 +61,7 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
     Logger.warning(`Failed to send message to user ${ctx.message.from_id}, error: ${e.message}`, LogTagEnum.Command);
   }
 
-  await usedClient.deleteMessage(ctx.message.id, ctx.message.peer_id);
+  await usedClient.deleteMessage(ctx.message.peer_id, null, ctx.message.conversation_message_id);
 
   return true;
 };
