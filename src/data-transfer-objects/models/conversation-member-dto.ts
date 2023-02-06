@@ -15,7 +15,7 @@ class ConversationMemberDto implements BaseDto {
 
   mutes: MuteDto[];
 
-  lastMute?: MuteDto;
+  last_mute?: MuteDto;
 }
 
 export default ConversationMemberDto;
