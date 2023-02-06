@@ -22,24 +22,24 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
   const notMutedMessage = NOT_MUTED_LOG_MESSAGE.replace('%s', ctx.message.from_id.toString());
 
   if (!conversationUser) {
-    Logger.info(notMutedMessage, LogTagEnum.Command);
+    Logger.info(notMutedMessage, LogTagEnum.System);
     return false;
   }
 
   const userDto = conversationMemberModel.formDto(conversationUser) as ConversationMemberDto;
   if (!userDto.last_mute) {
-    Logger.info(notMutedMessage, LogTagEnum.Command);
+    Logger.info(notMutedMessage, LogTagEnum.System);
     return false;
   }
 
   if (userDto.last_mute.expires_at > Date.now()) {
-    Logger.info(notMutedMessage, LogTagEnum.Command);
+    Logger.info(notMutedMessage, LogTagEnum.System);
     return false;
   }
 
   const usedClient = clients.find((client) => client.groupId === ctx.groupId) as VkClient;
   if (!usedClient) {
-    Logger.error(`No client found with id: ${ctx.groupId}`, LogTagEnum.Command);
+    Logger.error(`No client found with id: ${ctx.groupId}`, LogTagEnum.System);
     return false;
   }
 
