@@ -61,9 +61,16 @@ class VkClient {
     keyboard?: VkBotKeyboard,
     sticker?: string | number,
   ): Promise<{ peer_id: number, message_id: number, conversation_message_id: number, error?: any }> {
+    const finalMessage = message;
+    if (typeof finalMessage === 'object') {
+      Object.assign(finalMessage, {
+        random_id: Math.floor(Math.random() * 1000000),
+      });
+    }
+
     return this.getBotInstance().sendMessage(
       userId as number | string,
-      message as unknown as string,
+      finalMessage as unknown as string,
       attachment,
       keyboard,
       sticker,
