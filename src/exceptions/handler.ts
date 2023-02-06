@@ -14,6 +14,12 @@ const exceptionHandlers = [
   [VkBotApiException, VkBotPollingExceptionHandler],
 ];
 
+interface ApiError {
+  response: {
+    error_msg: string;
+  }
+}
+
 process.on('uncaughtException', (error: Error) => {
   StatisticsCollector.addException();
 
@@ -28,7 +34,7 @@ process.on('uncaughtException', (error: Error) => {
   }
 
   if (!foundHandler) {
-    Logger.emergency(`Unhandled error: ${error.stack}, api message: ${(error as unknown as Record<string, unknown>).error_msg || ''}`);
+    Logger.emergency(`Unhandled error: ${error.stack}, api message: ${(error as unknown as ApiError).response.error_msg || ''}`);
     process.exit(1);
   }
 });
