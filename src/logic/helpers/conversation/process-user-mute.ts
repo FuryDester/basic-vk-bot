@@ -57,7 +57,10 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
         }, причина: ${userDto.last_mute.reason}, выдан модератором ${
           getUserTap(userDto.last_mute.given_by, userName)
         } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}`,
-        forward_messages: userDto.last_mute.message_id,
+        forward: JSON.stringify({
+          peer_id                  : ctx.message.peer_id,
+          conversation_message_ids : [userDto.last_mute.message_id],
+        }),
       },
     );
   } catch (e) {
