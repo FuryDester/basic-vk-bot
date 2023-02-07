@@ -1,8 +1,8 @@
 import type { GroupPermission } from '@/types';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
-import BaseDto from '@/data-transfer-objects/base-dto';
+import Lokiable from '@/data-transfer-objects/lokiable';
 
-class GroupDto implements BaseDto {
+class GroupDto extends Lokiable {
   id: number;
 
   name: string;

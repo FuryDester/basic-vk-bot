@@ -1,8 +1,8 @@
-import BaseDto from '@/data-transfer-objects/base-dto';
 import WarnDto from '@/data-transfer-objects/misc/warn-dto';
 import MuteDto from '@/data-transfer-objects/misc/mute-dto';
+import Lokiable from '@/data-transfer-objects/lokiable';
 
-class ConversationMemberDto implements BaseDto {
+class ConversationMemberDto extends Lokiable {
   group_id: number;
 
   user_id: number;
