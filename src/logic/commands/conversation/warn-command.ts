@@ -160,7 +160,7 @@ class WarnCommand extends BaseCommand {
   }
 
   getUsage(): string {
-    return 'warn [причина] + ответ на сообщение пользователя';
+    return '/warn [причина] + ответ на сообщение пользователя';
   }
 }
 

@@ -110,7 +110,7 @@ class WarnsCommand extends BaseCommand {
   }
 
   getUsage(): string {
-    return 'warns [упоминание пользователя]';
+    return '/warns [упоминание пользователя]';
   }
 }
 
