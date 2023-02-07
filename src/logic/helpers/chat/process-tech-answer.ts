@@ -35,7 +35,6 @@ function onEditMessage(ctx: VkBotContext): boolean {
   const answer = TechAnswersTable.findOne({
     group_id   : ctx.groupId,
     message_id : ctx.message.id,
-    user_id    : ctx.message.from_id,
   } as object);
   if (!answer) {
     Logger.warning(`Tech answer not found for message ${ctx.message.id}, group id: ${ctx.groupId} (message_edit)`, LogTagEnum.Handler);
