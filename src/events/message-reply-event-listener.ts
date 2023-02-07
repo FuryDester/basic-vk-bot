@@ -41,12 +41,12 @@ class MessageReplyEventListener extends BaseListener {
     ) {
       if (processTechAnswer(data, this.getEventName())) {
         Logger.info(
-          `Tech answer processed for message ${data.message.id}, group id: ${data.groupId}, user: ${data.message.from_id} (message_edit)`,
+          `Tech answer processed for message ${data.message.id}, group id: ${data.groupId}, user: ${data.message.from_id} (message_reply)`,
           LogTagEnum.Handler,
         );
       } else {
         Logger.warning(
-          `Tech answer not processed for message ${data.message.id}, group id: ${data.groupId} (message_edit)`,
+          `Tech answer not processed for message ${data.message.id}, group id: ${data.groupId} (message_reply)`,
           LogTagEnum.Handler,
         );
       }
