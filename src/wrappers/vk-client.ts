@@ -77,7 +77,7 @@ class VkClient {
         sticker,
       );
     } catch (e) {
-      throw new VkBotApiException(e.response.error_msg ?? '', {
+      throw new VkBotApiException(e?.response?.error_msg ?? '', {
         method : 'messages.send',
         params : {
           user_id : userId,
@@ -103,7 +103,7 @@ class VkClient {
         cmids          : Array.isArray(conversationMessageIds) ? conversationMessageIds.join(',') : conversationMessageIds,
       });
     } catch (e) {
-      throw new VkBotApiException(e.response.error_msg ?? '', {
+      throw new VkBotApiException(e?.response?.error_msg ?? '', {
         method : 'messages.delete',
         params : {
           message_ids    : messageIds,
