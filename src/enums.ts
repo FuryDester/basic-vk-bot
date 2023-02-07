@@ -39,6 +39,7 @@ export enum GroupMemberPermissionEnum {
   CommandUnmute = 'command_unmute',
   CommandKick = 'command_kick',
   CountTechStatistics = 'count_tech_statistics',
+  CommandSummaryTechStatistics = 'command_summary_tech_statistics',
 }
 
 export enum CommandTypeEnum {
