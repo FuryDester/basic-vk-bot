@@ -109,7 +109,7 @@ class WarnCommand extends BaseCommand {
       const muteEndsString = moment(Date.now() + WarnCommand.getMuteTime).format('DD.MM.YYYY HH:mm:ss');
       context.reply(`Пользователь ${userTap} получил мут за 3 предупреждения. Мут истечёт: ${muteEndsString}`);
     } else {
-      context.reply(`Пользователь ${userTap} получил предупреждение. Всего предупреждений: ${userDto.warns.length}`);
+      context.reply(`Пользователь ${userTap} получил предупреждение. Всего предупреждений: ${userDto.warns.length - (userDto.warns_removed ?? 0)}`);
     }
 
     if (!userDto.$loki) {
