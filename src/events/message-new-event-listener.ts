@@ -14,6 +14,7 @@ import HelpCommand from '@/logic/commands/chat/help-command';
 import processUserMute from '@/logic/helpers/conversation/process-user-mute';
 import WarnCommand from '@/logic/commands/conversation/warn-command';
 import WarnsCommand from '@/logic/commands/conversation/warns-command';
+import UnwarnCommand from '@/logic/commands/conversation/unwarn-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -22,6 +23,7 @@ class MessageNewEventListener extends BaseListener {
       new HelpCommand(),
       new WarnCommand(),
       new WarnsCommand(),
+      new UnwarnCommand(),
     ];
   }
 

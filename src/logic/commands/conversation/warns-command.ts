@@ -23,6 +23,7 @@ class WarnsCommand extends BaseCommand {
   ): Promise<boolean> {
     const userArg = args.find((arg) => arg.position === 1)?.argumentValue.trim();
     if (!userArg) {
+      context.reply('Не указан пользователь');
       Logger.warning(`No user specified. Group: ${group.id}, user: ${user.user_id}, conversation: ${context.message.peer_id}`, LogTagEnum.Command);
 
       return false;
@@ -30,7 +31,7 @@ class WarnsCommand extends BaseCommand {
 
     const userId = getUserIdByMention(userArg);
     if (!userId) {
-      context.reply('Не найдено упоминание пользователя.');
+      context.reply('Не найдено упоминание пользователя');
       // eslint-disable-next-line max-len
       Logger.warning(`Cannot find user mention. Group: ${group.id}, user: ${user.user_id}, conversation: ${context.message.peer_id}`, LogTagEnum.Command);
 
