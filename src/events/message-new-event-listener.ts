@@ -16,6 +16,7 @@ import WarnCommand from '@/logic/commands/conversation/warn-command';
 import WarnsCommand from '@/logic/commands/conversation/warns-command';
 import UnwarnCommand from '@/logic/commands/conversation/unwarn-command';
 import MuteCommand from '@/logic/commands/conversation/mute-command';
+import UnmuteCommand from '@/logic/commands/conversation/unmute-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -26,6 +27,7 @@ class MessageNewEventListener extends BaseListener {
       new WarnsCommand(),
       new UnwarnCommand(),
       new MuteCommand(),
+      new UnmuteCommand(),
     ];
   }
 
