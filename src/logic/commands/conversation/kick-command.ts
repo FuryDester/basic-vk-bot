@@ -123,7 +123,6 @@ class KickCommand extends BaseCommand {
   getUsage(): string {
     return 'kick [причина] + ответ на сообщение пользователя';
   }
-
 }
 
 export default KickCommand;

@@ -123,7 +123,6 @@ class MuteCommand extends BaseCommand {
   getUsage(): string {
     return '/mute [время] [причина] + пересланное сообщение\nВремя задаётся в формате: 1w2d1h30m10s';
   }
-  
 }
 
 export default MuteCommand;

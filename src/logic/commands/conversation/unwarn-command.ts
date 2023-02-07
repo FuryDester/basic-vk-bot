@@ -96,7 +96,6 @@ class UnwarnCommand extends BaseCommand {
   getUsage(): string {
     return '/unwarn [упоминание]';
   }
-
 }
 
 export default UnwarnCommand;

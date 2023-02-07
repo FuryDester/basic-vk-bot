@@ -102,7 +102,6 @@ class HelpCommand extends BaseCommand {
   getUsage(): string {
     return 'При использовании команды выводит список доступных команд.';
   }
-
 }
 
 export default HelpCommand;

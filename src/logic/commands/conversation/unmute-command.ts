@@ -103,7 +103,6 @@ class UnmuteCommand extends BaseCommand {
   getUsage(): string {
     return '/unmute [упоминание]';
   }
-
 }
 
 export default UnmuteCommand;
