@@ -64,14 +64,14 @@ class TechstatisticsCommand extends BaseCommand {
     const periodFrom = new CommandArgumentDto();
     periodFrom.isLong = false;
     periodFrom.isOptional = true;
-    periodFrom.alias = 'дата с';
+    periodFrom.alias = 'дата_с';
     periodFrom.description = 'Дата начала периода, за который нужно получить статистику.';
     periodFrom.position = 1;
 
     const periodTo = new CommandArgumentDto();
     periodTo.isLong = false;
     periodTo.isOptional = true;
-    periodTo.alias = 'дата по';
+    periodTo.alias = 'дата_по';
     periodTo.description = 'Дата конца периода, за который нужно получить статистику.';
     periodTo.position = 2;
 
