@@ -16,6 +16,11 @@ class MessageReplyEventListener extends BaseListener {
   }
 
   protected handleEvent(data: VkBotContext): void {
+    // Disabling bot events
+    if (data.message.from_id < 0) {
+      return;
+    }
+
     const groupsDataModel = new GroupsData();
     const groupObject = groupsDataModel.getTable().findOne({ id: data.groupId } as object);
     if (!groupObject) {
