@@ -113,7 +113,7 @@ class WarnCommand extends BaseCommand {
 
     if (!userDto.$loki) {
       userDto.is_admin = false;
-      userDto.group_id = context.groupId;
+      userDto.group_id = group.id;
       userDto.conversation_id = context.message.peer_id;
       userDto.user_id = targetUserId;
       userDto.mutes = [];
