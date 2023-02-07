@@ -2,8 +2,6 @@ import ConversationMembers from '@/models/conversation-members';
 import ConversationMemberDto from '@/data-transfer-objects/models/conversation-member-dto';
 import Logger from '@/wrappers/logger';
 import { LogTagEnum } from '@/enums';
-import { clients } from '@/index';
-import VkClient from '@/wrappers/vk-client';
 import * as moment from 'moment';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 import StatisticsCollector from '@/wrappers/statistics-collector';

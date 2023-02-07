@@ -10,8 +10,6 @@ import ConversationMemberDto from '@/data-transfer-objects/models/conversation-m
 import WarnDto from '@/data-transfer-objects/misc/warn-dto';
 import mutePerson from '@/logic/helpers/conversation/mute-person';
 import * as moment from 'moment';
-import { clients } from '@/index';
-import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 

@@ -8,8 +8,6 @@ import Logger from '@/wrappers/logger';
 import ConversationMembers from '@/models/conversation-members';
 import ConversationMemberDto from '@/data-transfer-objects/models/conversation-member-dto';
 import * as moment from 'moment';
-import { clients } from '@/index';
-import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 import getUserIdByMention from '@/logic/helpers/misc/get-user-id-by-mention';
 import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
