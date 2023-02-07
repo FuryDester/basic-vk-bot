@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { clients } from '@/index';
 import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
+import getUserIdByMention from '@/logic/helpers/misc/get-user-id-by-mention';
 
 class WarnsCommand extends BaseCommand {
   async execute(
@@ -27,7 +28,7 @@ class WarnsCommand extends BaseCommand {
       return false;
     }
 
-    const userId = userArg.match(/^\[id(\d+)|.+]$/)[1];
+    const userId = getUserIdByMention(userArg);
     if (!userId) {
       context.reply('Не найдено упоминание пользователя.');
       // eslint-disable-next-line max-len
@@ -41,7 +42,7 @@ class WarnsCommand extends BaseCommand {
     const conversationMember = conversationMembersTable.findOne({
       group_id        : group.id,
       conversation_id : context.message.peer_id,
-      user_id         : Number.parseInt(userId, 10),
+      user_id         : userId,
     } as object);
 
     const userDto = conversationMembers.formDto(conversationMember) as ConversationMemberDto;
