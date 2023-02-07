@@ -12,6 +12,7 @@ import { clients } from '@/index';
 import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 import getUserIdByMention from '@/logic/helpers/misc/get-user-id-by-mention';
+import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 
 class WarnsCommand extends BaseCommand {
   async execute(
@@ -56,9 +57,9 @@ class WarnsCommand extends BaseCommand {
 
     let finalString = 'Пользователь получил следующие предупреждения:';
     let moderatorTaps = {};
-    const usedClient = clients.find((client) => client.groupId === group.id) as VkClient;
+    const usedClient = getClientByGroupId(group.id);
     if (!usedClient) {
-      Logger.error(`Cannot find client for group ${group.id}`, LogTagEnum.Command);
+      context.reply('Внутренняя ошибка');
 
       return false;
     }

@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { clients } from '@/index';
 import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
+import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 
 const muteTime = 60 * 60 * 24 * 3 * 1000;
 
@@ -77,9 +78,9 @@ class WarnCommand extends BaseCommand {
     }
     userDto.warns.push(warnDto);
 
-    const usedClient = clients.find((client) => client.groupId === group.id) as VkClient;
+    const usedClient = getClientByGroupId(group.id);
     if (!usedClient) {
-      Logger.error(`Failed to find client for group ${group.id}`, LogTagEnum.Command);
+      context.reply('Внутренняя ошибка');
       return false;
     }
 

@@ -5,12 +5,11 @@ import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dt
 import { CommandType, GroupMemberPermission, GroupPermission } from '@/types';
 import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum, LogTagEnum } from '@/enums';
 import Logger from '@/wrappers/logger';
-import { clients } from '@/index';
-import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 import ConversationMembers from '@/models/conversation-members';
 import ConversationMemberDto from '@/data-transfer-objects/models/conversation-member-dto';
 import KickDto from '@/data-transfer-objects/misc/kick-dto';
+import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 
 class KickCommand extends BaseCommand {
   async execute(
@@ -42,7 +41,11 @@ class KickCommand extends BaseCommand {
       return false;
     }
 
-    const usedClient = clients.find((client) => client.groupId === group.id) as VkClient;
+    const usedClient = getClientByGroupId(group.id);
+    if (!usedClient) {
+      context.reply('Внутренняя ошибка');
+      return false;
+    }
     const userInfo = await usedClient.getUserInfo(context.message.reply_message.from_id);
     const userMention = getUserTap(context.message.reply_message.from_id, `${userInfo.first_name} ${userInfo.last_name}`);
 

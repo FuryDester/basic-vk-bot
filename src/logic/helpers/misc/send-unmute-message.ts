@@ -1,14 +1,11 @@
-import { clients } from '@/index';
 import Logger from '@/wrappers/logger';
 import { LogTagEnum } from '@/enums';
-import VkClient from '@/wrappers/vk-client';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
+import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 
 export default async (groupId: number, userId: number, conversationId: number): Promise<boolean> => {
-  const usedClient = clients.find((client) => client.groupId === groupId) as VkClient;
+  const usedClient = getClientByGroupId(groupId);
   if (!usedClient) {
-    Logger.error(`Client for group ${groupId} not found (sendUnmuteMessage)`, LogTagEnum.System);
-
     return false;
   }
 

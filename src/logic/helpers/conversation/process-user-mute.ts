@@ -7,6 +7,7 @@ import VkClient from '@/wrappers/vk-client';
 import * as moment from 'moment';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 import StatisticsCollector from '@/wrappers/statistics-collector';
+import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 
 const NOT_MUTED_LOG_MESSAGE = 'User %s1 is not muted, group id: %s2, conversation id: %s3';
 
@@ -41,9 +42,8 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
     return false;
   }
 
-  const usedClient = clients.find((client) => client.groupId === ctx.groupId) as VkClient;
+  const usedClient = getClientByGroupId(ctx.groupId);
   if (!usedClient) {
-    Logger.error(`No client found with id: ${ctx.groupId}`, LogTagEnum.System);
     return false;
   }
 
