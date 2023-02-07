@@ -28,13 +28,15 @@ databaseClient.afterAvailability(() => {
     Logger.info(`Group: ${group.id} (${group.name}) found`);
 
     const client = new VkClient(group.id, group.token, false);
+    let eventsRegistered = [];
     Listeners.forEach((listener) => {
       // Registering event handlers
+      eventsRegistered.push(listener.getEventName());
       client.event(listener.getEventName(), (ctx, next) => {
         listener.handle(ctx, next);
       });
     });
-    Logger.info(`Group: ${group.id} (${group.name}) registered events: ${Object.keys(Listeners).join(', ')}`);
+    Logger.info(`Group: ${group.id} (${group.name}) registered events: ${eventsRegistered.join(', ')}`);
 
     client.startPolling((err: any) => {
       if (err) {
