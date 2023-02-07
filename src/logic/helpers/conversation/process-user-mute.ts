@@ -6,6 +6,7 @@ import { clients } from '@/index';
 import VkClient from '@/wrappers/vk-client';
 import * as moment from 'moment';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
+import StatisticsCollector from '@/wrappers/statistics-collector';
 
 const NOT_MUTED_LOG_MESSAGE = 'User %s1 is not muted, group id: %s2, conversation id: %s3';
 
@@ -77,5 +78,6 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
     }
   }
 
+  StatisticsCollector.addMutedMessageDeleted();
   return true;
 };

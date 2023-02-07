@@ -13,6 +13,8 @@ class StatisticsCollector {
 
   protected static commandsFailed: number = 0;
 
+  protected static mutedMessagedDeleted: number = 0;
+
   static getStartTime(): Date {
     return this.startTime;
   }
@@ -63,6 +65,14 @@ class StatisticsCollector {
 
   static getCommandsFailed(): number {
     return this.commandsFailed;
+  }
+
+  static getMutedMessagesDeleted(): number {
+    return this.mutedMessagedDeleted;
+  }
+
+  static addMutedMessageDeleted(): void {
+    this.mutedMessagedDeleted++;
   }
 }
 

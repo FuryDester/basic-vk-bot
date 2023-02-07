@@ -51,6 +51,7 @@ class HealthcheckCommand extends BaseCommand {
     answerString += `Пользователь: ${user.user_id}\n`;
     answerString += `Команд выполнено: ${StatisticsCollector.getCommandsExecuted()}\n`;
     answerString += `Команд провалено: ${StatisticsCollector.getCommandsFailed()}\n`;
+    answerString += `Удалено замученных сообщений: ${StatisticsCollector.getMutedMessagesDeleted()}\n`;
 
     const events = StatisticsCollector.getEventsRegistered();
     if (events) {
