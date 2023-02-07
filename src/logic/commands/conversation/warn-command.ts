@@ -45,12 +45,12 @@ class WarnCommand extends BaseCommand {
     }
 
     const targetUserId = replyMessage.from_id;
-    // if (group.members.find((member) => member.user_id === targetUserId)) {
-    //   Logger.warning(`Target user is admin. Group: ${group.id}, user: ${user.user_id}, message: ${context.message.id}`, LogTagEnum.Command);
-    //   context.reply('Администраторам нельзя выдать предупреждение');
-    //
-    //   return false;
-    // }
+    if (group.members.find((member) => member.user_id === targetUserId)) {
+      Logger.warning(`Target user is admin. Group: ${group.id}, user: ${user.user_id}, message: ${context.message.id}`, LogTagEnum.Command);
+      context.reply('Администраторам нельзя выдать предупреждение');
+
+      return false;
+    }
 
     const conversationMemberModel = new ConversationMembers();
     const conversationMemberTable = conversationMemberModel.getTable();
