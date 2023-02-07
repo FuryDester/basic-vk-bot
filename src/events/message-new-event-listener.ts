@@ -18,8 +18,8 @@ import UnwarnCommand from '@/logic/commands/conversation/unwarn-command';
 import MuteCommand from '@/logic/commands/conversation/mute-command';
 import UnmuteCommand from '@/logic/commands/conversation/unmute-command';
 import KickCommand from '@/logic/commands/conversation/kick-command';
-import TechstatisticsCommand from '@/logic/commands/chat/techstatistics-command';
-import SummarytechstatisticsCommand from '@/logic/commands/chat/summarytechstatistics-command';
+import TechStatisticsCommand from '@/logic/commands/chat/techstatistics-command';
+import SummaryTechStatisticsCommand from '@/logic/commands/chat/summary-tech-statistics-command';
 import GivePermissionCommand from '@/logic/commands/chat/give-permission-command';
 import TakePermissionCommand from '@/logic/commands/chat/take-permission-command';
 
@@ -34,8 +34,8 @@ class MessageNewEventListener extends BaseListener {
       new MuteCommand(),
       new UnmuteCommand(),
       new KickCommand(),
-      new TechstatisticsCommand(),
-      new SummarytechstatisticsCommand(),
+      new TechStatisticsCommand(),
+      new SummaryTechStatisticsCommand(),
       new GivePermissionCommand(),
       new TakePermissionCommand(),
     ];

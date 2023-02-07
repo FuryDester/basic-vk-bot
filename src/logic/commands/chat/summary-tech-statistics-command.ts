@@ -10,7 +10,7 @@ import Logger from '@/wrappers/logger';
 import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 import getUserTap from '@/logic/helpers/misc/get-user-tap';
 
-class TechstatisticsCommand extends BaseCommand {
+class SummaryTechStatisticsCommand extends BaseCommand {
   async execute(
     context: VkBotContext,
     group: GroupDto,
@@ -108,4 +108,4 @@ class TechstatisticsCommand extends BaseCommand {
   }
 }
 
-export default TechstatisticsCommand;
+export default SummaryTechStatisticsCommand;

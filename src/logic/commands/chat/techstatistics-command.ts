@@ -7,7 +7,7 @@ import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum } from 
 import getTechStatistics from '@/logic/helpers/chat/get-tech-statistics';
 import * as moment from 'moment';
 
-class TechstatisticsCommand extends BaseCommand {
+class TechStatisticsCommand extends BaseCommand {
   async execute(
     context: VkBotContext,
     group: GroupDto,
@@ -53,4 +53,4 @@ class TechstatisticsCommand extends BaseCommand {
   }
 }
 
-export default TechstatisticsCommand;
+export default TechStatisticsCommand;
