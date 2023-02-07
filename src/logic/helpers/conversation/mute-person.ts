@@ -3,7 +3,13 @@ import MuteDto from '@/data-transfer-objects/misc/mute-dto';
 import Logger from '@/wrappers/logger';
 import { LogTagEnum } from '@/enums';
 
-export default (user: ConversationMemberDto, ctx: VkBotContext, time: number, reason: string, sendMessage: boolean = true): null | ConversationMemberDto => {
+export default (
+  user: ConversationMemberDto,
+  ctx: VkBotContext,
+  time: number,
+  reason: string,
+  sendMessage: boolean = true,
+): null | ConversationMemberDto => {
   const userDto = user;
 
   if (time <= 0) {

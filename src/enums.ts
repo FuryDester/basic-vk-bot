@@ -34,6 +34,7 @@ export enum GroupMemberPermissionEnum {
   CommandWarn = 'command_warn',
   CommandWarns = 'command_warns',
   CommandUnwarn = 'command_unwarn',
+  CommandMute = 'command_mute',
 }
 
 export enum CommandTypeEnum {
