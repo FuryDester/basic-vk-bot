@@ -100,23 +100,24 @@ class MessageNewEventListener extends BaseListener {
       return;
     }
 
-    if (!command.execute(data, group, user, args, this.getAdditionalInfoByCommand(command, args))) {
-      Logger.warning(
-        `Command ${command.getName()} in group ${group.id} by user ${user.user_id} was not executed. Arguments: ${JSON.stringify(args)}`,
+    command.execute(data, group, user, args, this.getAdditionalInfoByCommand(command, args)).then((result) => {
+      if (!result) {
+        Logger.warning(
+          `Command ${command.getName()} in group ${group.id} by user ${user.user_id} was not executed. Arguments: ${JSON.stringify(args)}`,
+          LogTagEnum.Command,
+        );
+
+        StatisticsCollector.addCommandFailure();
+        return;
+      }
+
+      Logger.info(
+        `Command ${command.getName()} in group ${group.id} by user ${user.user_id} was executed. Arguments: ${JSON.stringify(args)}`,
         LogTagEnum.Command,
       );
 
-      StatisticsCollector.addCommandFailure();
-
-      return;
-    }
-
-    Logger.info(
-      `Command ${command.getName()} in group ${group.id} by user ${user.user_id} was executed. Arguments: ${JSON.stringify(args)}`,
-      LogTagEnum.Command,
-    );
-
-    StatisticsCollector.addCommandExecution();
+      StatisticsCollector.addCommandExecution();
+    });
   }
 
   handleEvent(data: VkBotContext): void {
