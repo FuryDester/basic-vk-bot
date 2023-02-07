@@ -16,6 +16,8 @@ class ConversationMemberDto extends Lokiable {
   mutes: MuteDto[];
 
   last_mute?: MuteDto;
+
+  warns_removed: number;
 }
 
 export default ConversationMemberDto;

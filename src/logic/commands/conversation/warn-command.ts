@@ -90,7 +90,8 @@ class WarnCommand extends BaseCommand {
     }
     const userTap = getUserTap(targetUserId, `${userInfo.first_name} ${userInfo.last_name}`);
 
-    if (!(userDto.warns.length % 3)) {
+    const totalWarns = userDto.warns.length - userDto.warns_removed ?? 0;
+    if (totalWarns && (totalWarns % 3 === 0)) {
       const resultUserDto = mutePerson(
         userDto,
         context,
