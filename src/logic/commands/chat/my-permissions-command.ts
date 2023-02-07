@@ -16,7 +16,7 @@ class MyPermissionsCommand extends BaseCommand {
   }
 
   getDescription(): string {
-    return 'Проверка работоспособности бота';
+    return 'Получение выданных прав';
   }
 
   getGroupMemberPermissions(): GroupMemberPermission[] {
