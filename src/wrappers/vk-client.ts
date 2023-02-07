@@ -170,7 +170,7 @@ class VkClient {
   }
 
   static isConversationMessage(ctx: VkBotContext): boolean {
-    return ctx.message.peer_id !== ctx.message.from_id;
+    return ctx.message.peer_id > 2000000000;
   }
 }
 
