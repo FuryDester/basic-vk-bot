@@ -95,7 +95,7 @@ class WarnCommand extends BaseCommand {
         userDto,
         context,
         WarnCommand.getMuteTime,
-        'Вы получили мут за 3 предупреждения',
+        'Превышено количество предупреждений (3)',
         false,
       );
 
