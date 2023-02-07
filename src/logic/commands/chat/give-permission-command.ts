@@ -33,7 +33,6 @@ class GivePermissionCommand extends BaseCommand {
       return false;
     }
 
-    const commandExecutor = group.members.find((member) => member.user_id === context.message.from_id);
     const isGivingPermissionsToGivePermissions = ([
       GroupMemberPermissionEnum.CommandGivePermission,
       GroupMemberPermissionEnum.CommandTakePermission,
@@ -43,9 +42,9 @@ class GivePermissionCommand extends BaseCommand {
     // You cannot give All permission
     if (
       (
-        !commandExecutor.permissions.includes(permissionName as GroupMemberPermission)
+        !user.permissions.includes(permissionName as GroupMemberPermission)
         || isGivingPermissionsToGivePermissions
-      ) && !commandExecutor.permissions.includes(GroupMemberPermissionEnum.All)
+      ) && !user.permissions.includes(GroupMemberPermissionEnum.All)
       || permissionName === GroupMemberPermissionEnum.All
     ) {
       Logger.warning(
