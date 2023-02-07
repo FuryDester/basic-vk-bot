@@ -8,6 +8,7 @@ import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 import hasTechStatisticsAbility from '@/logic/helpers/misc/has-tech-statistics-ability';
 import processTechAnswer from '@/logic/helpers/chat/process-tech-answer';
 import VkClient from '@/wrappers/vk-client';
+import isAdminChat from '@/logic/helpers/misc/is-admin-chat';
 
 class MessageEditEventListener extends BaseListener {
   getEventName(): HandlerEvent {
@@ -28,7 +29,11 @@ class MessageEditEventListener extends BaseListener {
       return;
     }
 
-    if (hasTechStatisticsAbility(group, user) && !VkClient.isConversationMessage(data)) {
+    if (
+      hasTechStatisticsAbility(group, user)
+      && !VkClient.isConversationMessage(data)
+      && !isAdminChat(data, group)
+    ) {
       if (processTechAnswer(data, this.getEventName())) {
         Logger.info(
           `Tech answer processed for message ${data.message.id}, group id: ${data.groupId}, user: ${data.message.from_id} (message_edit)`,
