@@ -8,6 +8,7 @@ import Logger from '@/wrappers/logger';
 import getUserIdByMention from '@/logic/helpers/misc/get-user-id-by-mention';
 import ConversationMembers from '@/models/conversation-members';
 import ConversationMemberDto from '@/data-transfer-objects/models/conversation-member-dto';
+import sendUnmuteMessage from '@/logic/helpers/misc/send-unmute-message';
 
 class UnmuteCommand extends BaseCommand {
   async execute(
@@ -63,6 +64,7 @@ class UnmuteCommand extends BaseCommand {
     }
 
     context.reply('Пользователь размучен');
+    sendUnmuteMessage(group.id, userId);
 
     return true;
   }
