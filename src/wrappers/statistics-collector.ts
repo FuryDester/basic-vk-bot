@@ -15,6 +15,8 @@ class StatisticsCollector {
 
   protected static mutedMessagedDeleted: number = 0;
 
+  protected static techNewMessages: number = 0;
+
   static getStartTime(): Date {
     return this.startTime;
   }
@@ -73,6 +75,14 @@ class StatisticsCollector {
 
   static addMutedMessageDeleted(): void {
     this.mutedMessagedDeleted++;
+  }
+
+  static addTechNewMessage(): void {
+    this.techNewMessages++;
+  }
+
+  static getTechNewMessages(): number {
+    return this.techNewMessages;
   }
 }
 
