@@ -21,7 +21,6 @@ class WarnCommand extends BaseCommand {
     return muteTime;
   }
 
-  // TODO make all commands execution async
   async execute(
     context: VkBotContext,
     group: GroupDto,
@@ -61,11 +60,9 @@ class WarnCommand extends BaseCommand {
       user_id         : targetUserId,
       conversation_id : context.message.peer_id,
     } as object);
-    let foundUser = false;
 
     let userDto = new ConversationMemberDto();
     if (conversationUser) {
-      foundUser = true;
       userDto = conversationMemberModel.formDto(conversationUser) as ConversationMemberDto;
     }
 
@@ -109,23 +106,14 @@ class WarnCommand extends BaseCommand {
 
       userDto = resultUserDto;
       const muteEndsString = moment(Date.now() + WarnCommand.getMuteTime).format('DD.MM.YYYY HH:mm:ss');
-      context.reply(`Пользователь получил мут за 3 предупреждения. Мут истечёт: ${muteEndsString}`);
+      context.reply(`Пользователь ${userTap} получил мут за 3 предупреждения. Мут истечёт: ${muteEndsString}`);
     } else {
-      context.reply(`Пользователь получил предупреждение. Всего предупреждений: ${userDto.warns.length}`);
+      context.reply(`Пользователь ${userTap} получил предупреждение. Всего предупреждений: ${userDto.warns.length}`);
     }
 
-    if (foundUser) {
-      conversationMemberTable.findAndUpdate({
-        group_id        : group.id,
-        user_id         : targetUserId,
-        conversation_id : context.message.peer_id,
-      } as object, (item) => {
-        Object.assign(item, userDto);
-        console.log(item);
-      });
-    } else {
-      conversationMemberTable.insert(userDto);
-    }
+    conversationMemberTable.update(userDto);
+
+    return true;
   }
 
   getArguments(): CommandArgumentDto[] {
