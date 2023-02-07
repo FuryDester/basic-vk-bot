@@ -32,6 +32,7 @@ export enum GroupMemberPermissionEnum {
   All = 'all',
   CommandHealthcheck = 'command_healthcheck',
   CommandWarn = 'command_warn',
+  CommandWarns = 'command_warns',
 }
 
 export enum CommandTypeEnum {
