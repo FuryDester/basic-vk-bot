@@ -1,4 +1,4 @@
-interface BaseDto {
+interface BaseDto extends LokiObj {
 
 }
 
