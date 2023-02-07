@@ -33,6 +33,7 @@ class MessageEditEventListener extends BaseListener {
       hasTechStatisticsAbility(group, user)
       && !VkClient.isConversationMessage(data)
       && !isAdminChat(data, group)
+      && data.message.from_id < 0
     ) {
       if (processTechAnswer(data, this.getEventName())) {
         Logger.info(
