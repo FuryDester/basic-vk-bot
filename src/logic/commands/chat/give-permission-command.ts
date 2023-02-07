@@ -111,7 +111,7 @@ class GivePermissionCommand extends BaseCommand {
   }
 
   getDescription(): string {
-    return `Выдаёт пользователю права. Существующие права:\n${GroupMemberPermissionEnum}`;
+    return `Выдаёт пользователю права. Существующие права: ${Object.values(GroupMemberPermissionEnum).join(', ')}`;
   }
 
   getGroupMemberPermissions(): GroupMemberPermission[] {
