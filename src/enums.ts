@@ -48,10 +48,6 @@ export enum CommandTypeEnum {
 
 export enum HandlerEventEnum {
   MessageNew = 'message_new',
-}
-
-export enum MessageActionEnum {
-  MessageNew = 'message_new',
   MessageEdit = 'message_edit',
   MessageDelete = 'message_delete',
 }

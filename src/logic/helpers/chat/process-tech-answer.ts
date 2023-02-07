@@ -1,5 +1,5 @@
-import type { MessageAction } from '@/types';
-import { MessageActionEnum } from '@/enums';
+import type { HandlerEvent } from '@/types';
+import { HandlerEventEnum } from '@/enums';
 
 function onNewMessage(_ctx: VkBotContext): boolean {
   return true;
@@ -13,15 +13,15 @@ function onDeleteMessage(_ctx: VkBotContext): boolean {
   return true;
 }
 
-export default (ctx: VkBotContext, action: MessageAction): boolean => {
+export default (ctx: VkBotContext, action: HandlerEvent): boolean => {
   switch (action) {
-    case MessageActionEnum.MessageNew: {
+    case HandlerEventEnum.MessageNew: {
       return onNewMessage(ctx);
     }
-    case MessageActionEnum.MessageEdit: {
+    case HandlerEventEnum.MessageEdit: {
       return onEditMessage(ctx);
     }
-    case MessageActionEnum.MessageDelete: {
+    case HandlerEventEnum.MessageDelete: {
       return onDeleteMessage(ctx);
     }
     default: { return false; }

@@ -6,7 +6,6 @@ import {
   GroupMemberPermissionEnum,
   CommandTypeEnum,
   HandlerEventEnum,
-  MessageActionEnum,
 } from '@/enums';
 
 export type LogLevel = `${LogLevelEnum}`;
@@ -22,5 +21,3 @@ export type GroupMemberPermission = `${GroupMemberPermissionEnum}`;
 export type CommandType = `${CommandTypeEnum}`;
 
 export type HandlerEvent = `${HandlerEventEnum}`;
-
-export type MessageAction = `${MessageActionEnum}`;
