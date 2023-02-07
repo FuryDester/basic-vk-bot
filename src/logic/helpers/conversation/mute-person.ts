@@ -2,6 +2,7 @@ import ConversationMemberDto from '@/data-transfer-objects/models/conversation-m
 import MuteDto from '@/data-transfer-objects/misc/mute-dto';
 import Logger from '@/wrappers/logger';
 import { LogTagEnum } from '@/enums';
+import * as moment from 'moment';
 
 export default (
   user: ConversationMemberDto,
@@ -54,7 +55,7 @@ export default (
 
   Logger.info(`Muted user ${user.user_id} in conversation ${user.conversation_id} (group id: ${ctx.groupId}) for ${time}ms with reason "${reason}"`);
   if (sendMessage) {
-    ctx.reply(`Пользователь замучен на ${time / 1000} секунд`);
+    ctx.reply(`Пользователь получил мут до ${moment().add(time, 'ms').format('DD.MM.YYYY HH:mm:ss')}. Причина: ${reason}`);
   }
 
   return userDto;
