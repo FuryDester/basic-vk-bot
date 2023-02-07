@@ -69,7 +69,7 @@ class WarnsCommand extends BaseCommand {
       }
 
       finalString +=
-        `\n${iterator++}. ${warn.reason}, выдан ${moderatorTaps[warn.given_by]} ${moment(warn.given_at).format('DD.MM.YYYY HH:mm:ss')}`;
+        `\n${iterator++}. ${warn.reason.trim()}, выдан ${moderatorTaps[warn.given_by]} ${moment(warn.given_at).format('DD.MM.YYYY HH:mm:ss')}`;
     }
 
     context.reply(finalString);
