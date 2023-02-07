@@ -64,7 +64,7 @@ class UnmuteCommand extends BaseCommand {
     }
 
     context.reply('Пользователь размучен');
-    sendUnmuteMessage(group.id, userId);
+    await sendUnmuteMessage(group.id, userId, context.message.peer_id);
 
     return true;
   }

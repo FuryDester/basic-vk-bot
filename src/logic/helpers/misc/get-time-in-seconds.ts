@@ -1,6 +1,11 @@
 export default (time: string): number | null => {
+  const matches = time.match(/(\d+)([wdhms])/g);
+  if (!matches) {
+    return null;
+  }
+
   let seconds = 0;
-  time.match(/(\d+)([wdhms])/g).forEach((match) => {
+  matches.forEach((match) => {
     const dateSymbol = match.slice(-1);
     const dateValue = parseInt(match.slice(0, -1), 10);
     switch (dateSymbol) {
