@@ -55,7 +55,7 @@ class UnmuteCommand extends BaseCommand {
       return false;
     }
 
-    userDto.last_mute = null;
+    userDto.last_mute.expires_at = 0;
     if (userDto.$loki) {
       conversationMembersTable.update(userDto);
     } else {
