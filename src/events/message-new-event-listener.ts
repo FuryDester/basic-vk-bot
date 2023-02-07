@@ -21,6 +21,7 @@ import KickCommand from '@/logic/commands/conversation/kick-command';
 import TechstatisticsCommand from '@/logic/commands/chat/techstatistics-command';
 import SummarytechstatisticsCommand from '@/logic/commands/chat/summarytechstatistics-command';
 import GivePermissionCommand from '@/logic/commands/chat/give-permission-command';
+import TakePermissionCommand from '@/logic/commands/chat/take-permission-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -36,6 +37,7 @@ class MessageNewEventListener extends BaseListener {
       new TechstatisticsCommand(),
       new SummarytechstatisticsCommand(),
       new GivePermissionCommand(),
+      new TakePermissionCommand(),
     ];
   }
 
