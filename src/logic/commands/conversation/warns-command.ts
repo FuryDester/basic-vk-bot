@@ -41,41 +41,38 @@ class WarnsCommand extends BaseCommand {
     const conversationMember = conversationMembersTable.findOne({
       group_id        : group.id,
       conversation_id : context.message.peer_id,
-      user_id         : userId,
+      user_id         : Number.parseInt(userId, 10),
     } as object);
 
-    if (!conversationMember) {
+    const userDto = conversationMembers.formDto(conversationMember) as ConversationMemberDto;
+    if (!conversationMember || userDto.warns?.length === 0) {
       context.reply('Пользователю не выдавались наказания в этой беседе.');
       Logger.info(`User has no punishments. Group: ${group.id}, user: ${user.user_id}, conversation: ${context.message.peer_id}`, LogTagEnum.Command);
 
       return true;
     }
 
-    const userDto = conversationMembers.formDto(conversationMember) as ConversationMemberDto;
-    let finalString = `Пользователь получил ${userDto.warns.length ?? 0} предупреждений.`;
+    let finalString = 'Пользователь получил следующие предупреждения:';
     let moderatorTaps = {};
-    if (userDto.warns.length > 0) {
-      const usedClient = clients.find((client) => client.groupId === group.id) as VkClient;
-      if (!usedClient) {
-        Logger.error(`Cannot find client for group ${group.id}`, LogTagEnum.Command);
+    const usedClient = clients.find((client) => client.groupId === group.id) as VkClient;
+    if (!usedClient) {
+      Logger.error(`Cannot find client for group ${group.id}`, LogTagEnum.Command);
 
-        return false;
-      }
-
-      finalString += '\nСписок предупреждений:';
-      let iterator = 1;
-      for (const warn of userDto.warns) {
-        if (!moderatorTaps[warn.given_by]) {
-          const userInfo = await usedClient.getUserInfo(warn.given_by);
-          moderatorTaps[warn.given_by] = getUserTap(warn.given_by, `${userInfo.first_name} ${userInfo.last_name}`);
-        }
-
-        finalString +=
-          `\n${iterator++}. ${warn.reason}, выдан ${moderatorTaps[warn.given_by]} ${moment(warn.given_at).format('DD.MM.YYYY HH:mm:ss')}`;
-      }
-
-      context.reply(finalString);
+      return false;
     }
+
+    let iterator = 1;
+    for (const warn of userDto.warns.reverse()) {
+      if (!moderatorTaps[warn.given_by]) {
+        const userInfo = await usedClient.getUserInfo(warn.given_by);
+        moderatorTaps[warn.given_by] = getUserTap(warn.given_by, `${userInfo.first_name} ${userInfo.last_name}`);
+      }
+
+      finalString +=
+        `\n${iterator++}. ${warn.reason}, выдан ${moderatorTaps[warn.given_by]} ${moment(warn.given_at).format('DD.MM.YYYY HH:mm:ss')}`;
+    }
+
+    context.reply(finalString);
 
     return false;
   }
