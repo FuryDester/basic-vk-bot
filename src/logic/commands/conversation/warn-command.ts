@@ -111,7 +111,17 @@ class WarnCommand extends BaseCommand {
       context.reply(`Пользователь ${userTap} получил предупреждение. Всего предупреждений: ${userDto.warns.length}`);
     }
 
-    conversationMemberTable.update(userDto);
+    if (!userDto.$loki) {
+      userDto.is_admin = false;
+      userDto.group_id = context.groupId;
+      userDto.conversation_id = context.message.peer_id;
+      userDto.user_id = targetUserId;
+      userDto.mutes = [];
+
+      conversationMemberTable.insert(userDto);
+    } else {
+      conversationMemberTable.update(userDto);
+    }
 
     return true;
   }

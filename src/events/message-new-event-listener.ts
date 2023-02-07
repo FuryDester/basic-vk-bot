@@ -121,19 +121,19 @@ class MessageNewEventListener extends BaseListener {
   }
 
   handleEvent(data: VkBotContext): void {
+    const isConversationMessage = VkClient.isConversationMessage(data);
+    if (isConversationMessage) {
+      processUserMute(data);
+    }
+
     const message = data.message.text.trim();
     if (!message) {
       return;
     }
 
-    const isConversationMessage = VkClient.isConversationMessage(data);
     if (message.startsWith('/')) {
       this.handleCommand(data, isConversationMessage);
       return;
-    }
-
-    if (isConversationMessage) {
-      processUserMute(data);
     }
   }
 }
