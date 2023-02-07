@@ -25,6 +25,10 @@ abstract class BaseModel {
 
     return dto;
   }
+
+  public formDtos(data: (object & LokiObj)[]): (BaseDto & object | Lokiable & object)[] {
+    return data.map((item) => this.formDto(item));
+  }
 }
 
 export default BaseModel;
