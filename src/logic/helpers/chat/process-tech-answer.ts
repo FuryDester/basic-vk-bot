@@ -29,10 +29,10 @@ function onReplyMessage(ctx: VkBotContext): boolean {
 }
 
 function onEditMessage(ctx: VkBotContext): boolean {
-  const TechAnswersModel = new TechAnswers();
-  const TechAnswersTable = TechAnswersModel.getTable();
+  const techAnswersModel = new TechAnswers();
+  const techAnswersTable = techAnswersModel.getTable();
 
-  const answer = TechAnswersTable.findOne({
+  const answer = techAnswersTable.findOne({
     group_id   : ctx.groupId,
     message_id : ctx.message.id,
   } as object);
@@ -41,11 +41,11 @@ function onEditMessage(ctx: VkBotContext): boolean {
 
     createNewTechAnswer(ctx, 1);
   } else {
-    const techAnswerDto = TechAnswersModel.formDto(answer) as TechAnswerDto;
+    const techAnswerDto = techAnswersModel.formDto(answer) as TechAnswerDto;
     techAnswerDto.edit_count += 1;
     techAnswerDto.text_length = ctx.message.text.trim().length;
 
-    TechAnswersTable.update(techAnswerDto);
+    techAnswersTable.update(techAnswerDto);
   }
 
   return true;

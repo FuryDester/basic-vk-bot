@@ -18,6 +18,7 @@ import UnwarnCommand from '@/logic/commands/conversation/unwarn-command';
 import MuteCommand from '@/logic/commands/conversation/mute-command';
 import UnmuteCommand from '@/logic/commands/conversation/unmute-command';
 import KickCommand from '@/logic/commands/conversation/kick-command';
+import TechstatisticsCommand from '@/logic/commands/chat/techstatistics-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -30,6 +31,7 @@ class MessageNewEventListener extends BaseListener {
       new MuteCommand(),
       new UnmuteCommand(),
       new KickCommand(),
+      new TechstatisticsCommand(),
     ];
   }
 

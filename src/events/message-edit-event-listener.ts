@@ -23,8 +23,13 @@ class MessageEditEventListener extends BaseListener {
       return;
     }
 
+    let userId = data.message.admin_author_id;
+    if (data.message.from_id > 0) {
+      userId = data.message.from_id;
+    }
+
     const group = groupsDataModel.formDto(groupObject) as GroupDto;
-    const user = group.members.find((member) => member.user_id === data.message.from_id) as GroupMemberDto;
+    const user = group.members.find((member) => member.user_id === userId) as GroupMemberDto;
     if (!user) {
       return;
     }
@@ -37,7 +42,7 @@ class MessageEditEventListener extends BaseListener {
     ) {
       if (processTechAnswer(data, this.getEventName())) {
         Logger.info(
-          `Tech answer processed for message ${data.message.id}, group id: ${data.groupId}, user: ${data.message.from_id} (message_edit)`,
+          `Tech answer processed for message ${data.message.id}, group id: ${data.groupId}, user: ${userId} (message_edit)`,
           LogTagEnum.Handler,
         );
       } else {
