@@ -26,6 +26,7 @@ export enum GroupPermissionEnum {
   All = 'all',
   ChatCommands = 'chat_commands',
   ConversationCommands = 'conversation_commands',
+  TechStatistics = 'tech_statistics',
 }
 
 export enum GroupMemberPermissionEnum {
@@ -37,6 +38,7 @@ export enum GroupMemberPermissionEnum {
   CommandMute = 'command_mute',
   CommandUnmute = 'command_unmute',
   CommandKick = 'command_kick',
+  CountTechStatistics = 'count_tech_statistics',
 }
 
 export enum CommandTypeEnum {
@@ -46,4 +48,10 @@ export enum CommandTypeEnum {
 
 export enum HandlerEventEnum {
   MessageNew = 'message_new',
+}
+
+export enum MessageActionEnum {
+  MessageNew = 'message_new',
+  MessageEdit = 'message_edit',
+  MessageDelete = 'message_delete',
 }
