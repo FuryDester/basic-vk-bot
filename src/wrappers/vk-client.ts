@@ -115,6 +115,26 @@ class VkClient {
     }
   }
 
+  removeChatUser(
+    chat_id: number | string,
+    user_id: number | string,
+  ): Promise <unknown> {
+    try {
+      return this.getBotInstance().execute('messages.removeChatUser', {
+        chat_id,
+        user_id,
+      });
+    } catch (e) {
+      throw new VkBotApiException(e?.response?.error_msg ?? '', {
+        method : 'messages.removeChatUser',
+        params : {
+          chat_id,
+          user_id,
+        },
+      });
+    }
+  }
+
   event(triggers: string, ...middlewares: VkBotMiddleware[]): VkClient {
     this.getBotInstance().event(triggers, ...middlewares);
 
