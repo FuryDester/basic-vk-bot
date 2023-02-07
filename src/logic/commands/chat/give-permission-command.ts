@@ -34,9 +34,19 @@ class GivePermissionCommand extends BaseCommand {
     }
 
     const commandExecutor = group.members.find((member) => member.user_id === context.message.from_id);
+    const isGivingPermissionsToGivePermissions = ([
+      GroupMemberPermissionEnum.CommandGivePermission,
+      GroupMemberPermissionEnum.CommandTakePermission,
+    ] as string[]).includes(permissionName);
+    // You cannot give permissions that you don't have, unless you have All permission
+    // You cannot give permissions to give or take permissions, unless you have All permission
+    // You cannot give All permission
     if (
-      !commandExecutor.permissions.includes(permissionName as GroupMemberPermission)
-      && !commandExecutor.permissions.includes(GroupMemberPermissionEnum.All)
+      (
+        !commandExecutor.permissions.includes(permissionName as GroupMemberPermission)
+        || isGivingPermissionsToGivePermissions
+      ) && !commandExecutor.permissions.includes(GroupMemberPermissionEnum.All)
+      || permissionName === GroupMemberPermissionEnum.All
     ) {
       Logger.warning(
         `User ${context.message.from_id} (group ${context.groupId}) has no permission to give permission ${permissionName}`,
@@ -57,6 +67,12 @@ class GivePermissionCommand extends BaseCommand {
     }
 
     const numericUserId = userInfo.id;
+    if (numericUserId === context.message.from_id) {
+      Logger.warning(`User ${numericUserId} tried to give himself permission ${permissionName}`, LogTagEnum.Command);
+      context.reply('Вы не можете выдать себе право');
+
+      return false;
+    }
 
     let grantedUser = group.members.find((member) => member.user_id === numericUserId);
     if (!grantedUser) {
