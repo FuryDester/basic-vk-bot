@@ -4,5 +4,8 @@ import { GroupMemberPermissionEnum, GroupPermissionEnum } from '@/enums';
 
 export default (group: GroupDto, user: GroupMemberDto): boolean => {
   return group.permissions.includes(GroupPermissionEnum.TechStatistics)
-    && user.permissions.includes(GroupMemberPermissionEnum.CountTechStatistics);
+    && (
+      user.permissions.includes(GroupMemberPermissionEnum.CountTechStatistics)
+      || user.permissions.includes(GroupMemberPermissionEnum.All)
+    );
 };
