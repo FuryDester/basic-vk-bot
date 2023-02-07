@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import TechAnswers from '@/models/tech-answers';
 import TechAnswerDto from '@/data-transfer-objects/models/tech-answer-dto';
+import uniqueValuesInArray from '@/logic/helpers/misc/unique-values-in-array';
 
 export default (groupId: number, userId: number, periodFrom: number, periodTo: number): string => {
   const dateFrom = moment(periodFrom).format('DD.MM.YYYY');
@@ -23,7 +24,7 @@ export default (groupId: number, userId: number, periodFrom: number, periodTo: n
   }
 
   const totalMessages = data.length;
-  const dialogsCount = data.map((item) => item.chat_id);
+  const dialogsCount = uniqueValuesInArray(data.map((item) => item.chat_id));
   const averageMessageLength = data.reduce((acc, item) => acc + item.text_length, 0) / totalMessages;
   const averageEditCount = data.reduce((acc, item) => acc + item.edit_count, 0) / totalMessages;
 
