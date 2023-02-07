@@ -40,6 +40,8 @@ export enum GroupMemberPermissionEnum {
   CommandKick = 'command_kick',
   CountTechStatistics = 'count_tech_statistics',
   CommandSummaryTechStatistics = 'command_summary_tech_statistics',
+  CommandGivePermission = 'command_give_permission',
+  CommandTakePermission = 'command_take_permission',
 }
 
 export enum CommandTypeEnum {

@@ -145,7 +145,7 @@ class VkClient {
     return this.getBotInstance().execute(method, params);
   }
 
-  async getUsersInfo(userIds: number[]): Promise<UserDto[]> {
+  async getUsersInfo(userIds: (number | string)[]): Promise<UserDto[]> {
     const method = 'users.get';
     const params = {
       user_ids: userIds.join(','),
@@ -165,7 +165,7 @@ class VkClient {
     }
   }
 
-  async getUserInfo(userId: number): Promise<UserDto> {
+  async getUserInfo(userId: number | string): Promise<UserDto> {
     return (await this.getUsersInfo([userId]))[0];
   }
 
