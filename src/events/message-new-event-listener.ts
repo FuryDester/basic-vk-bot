@@ -23,6 +23,7 @@ import SummaryTechStatisticsCommand from '@/logic/commands/chat/summary-tech-sta
 import GivePermissionCommand from '@/logic/commands/chat/give-permission-command';
 import TakePermissionCommand from '@/logic/commands/chat/take-permission-command';
 import MyPermissionsCommand from '@/logic/commands/chat/my-permissions-command';
+import GetPermissionsCommand from '@/logic/commands/chat/get-permissions-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -40,6 +41,7 @@ class MessageNewEventListener extends BaseListener {
       new GivePermissionCommand(),
       new TakePermissionCommand(),
       new MyPermissionsCommand(),
+      new GetPermissionsCommand(),
     ];
   }
 

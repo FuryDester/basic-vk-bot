@@ -43,6 +43,7 @@ export enum GroupMemberPermissionEnum {
   CommandGivePermission = 'command_give_permission',
   CommandTakePermission = 'command_take_permission',
   CommandMyPermissions = 'command_my_permissions',
+  CommandGetPermissions = 'command_get_permissions',
 }
 
 export enum CommandTypeEnum {
