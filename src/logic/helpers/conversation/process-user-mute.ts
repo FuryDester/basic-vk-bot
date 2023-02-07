@@ -56,17 +56,17 @@ export default async (ctx: VkBotContext): Promise<boolean> => {
     sendMessage = false;
   }
 
+  const muteExpiresAt = moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss');
+  const moderatorTap = getUserTap(userDto.last_mute.given_by, userName);
+  const muteGivenAt = moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss');
   if (sendMessage) {
     try {
       await usedClient.sendMessage(
         ctx.message.from_id,
         {
-          message: `Вами был получен мут, а потому отправленное Вами сообщение было удалено. Он истекает в ${
-            moment(userDto.last_mute.expires_at).format('DD.MM.YYYY HH:mm:ss')
-          }, выдан модератором ${
-            getUserTap(userDto.last_mute.given_by, userName)
-          } в ${moment(userDto.last_mute.given_at).format('DD.MM.YYYY HH:mm:ss')}. Причина: ${userDto.last_mute.reason}`,
-          forward: JSON.stringify({
+          // eslint-disable-next-line max-len
+          message : `Вы получили мут в беседе за пересланное сообщение.\nНаказание истекает ${muteExpiresAt}\nНаказание выдано Администратором ${moderatorTap} ${muteGivenAt}\nПричина: ${userDto.last_mute.reason}`,
+          forward : JSON.stringify({
             peer_id                  : ctx.message.peer_id,
             conversation_message_ids : [userDto.last_mute.message_id],
           }),
