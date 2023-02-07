@@ -7,7 +7,13 @@ import { CommandTypeEnum, GroupPermissionEnum, LogTagEnum } from '@/enums';
 import Logger from '@/wrappers/logger';
 
 class HelpCommand extends BaseCommand {
-  execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], additionalInfo?: unknown): boolean {
+  async execute(
+    context: VkBotContext,
+    group: GroupDto,
+    user: GroupMemberDto,
+    args: CommandArgumentDto[],
+    additionalInfo?: unknown,
+  ): Promise<boolean> {
     const commandName = args.find(arg => arg.position === 1)?.argumentValue;
     // Summary data
     if (!commandName) {

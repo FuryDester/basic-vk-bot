@@ -10,6 +10,9 @@ import ConversationMemberDto from '@/data-transfer-objects/models/conversation-m
 import WarnDto from '@/data-transfer-objects/misc/warn-dto';
 import mutePerson from '@/logic/helpers/conversation/mute-person';
 import * as moment from 'moment';
+import { clients } from '@/index';
+import VkClient from '@/wrappers/vk-client';
+import getUserTap from '@/logic/helpers/misc/get-user-tap';
 
 const muteTime = 60 * 60 * 24 * 3 * 1000;
 
@@ -18,7 +21,14 @@ class WarnCommand extends BaseCommand {
     return muteTime;
   }
 
-  execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], _additionalInfo?: unknown): boolean {
+  // TODO make all commands execution async
+  async execute(
+    context: VkBotContext,
+    group: GroupDto,
+    user: GroupMemberDto,
+    args: CommandArgumentDto[],
+    _additionalInfo?: unknown,
+  ): Promise<boolean> {
     const reason = args.find((arg) => arg.position === 1)?.argumentValue;
     if (!reason) {
       Logger.warning(`No warn reason specified. Group: ${group.id}, user: ${user.user_id}, message: ${context.message.id}`, LogTagEnum.Command);
@@ -35,23 +45,13 @@ class WarnCommand extends BaseCommand {
       return false;
     }
 
-    if (replyMessage.peer_id !== context.message.peer_id) {
-      Logger.warning(
-        `Reply message is not in the same conversation. Group: ${group.id}, user: ${user.user_id}, message: ${context.message.id}`,
-        LogTagEnum.Command,
-      );
-      context.reply('Сообщение, по которому выдаётся предупреждение, должно быть в той же беседе, что и команда');
-
-      return false;
-    }
-
     const targetUserId = replyMessage.from_id;
-    if (group.members.find((member) => member.user_id === targetUserId)) {
-      Logger.warning(`Target user is admin. Group: ${group.id}, user: ${user.user_id}, message: ${context.message.id}`, LogTagEnum.Command);
-      context.reply('Администраторам нельзя выдать предупреждение');
-
-      return false;
-    }
+    // if (group.members.find((member) => member.user_id === targetUserId)) {
+    //   Logger.warning(`Target user is admin. Group: ${group.id}, user: ${user.user_id}, message: ${context.message.id}`, LogTagEnum.Command);
+    //   context.reply('Администраторам нельзя выдать предупреждение');
+    //
+    //   return false;
+    // }
 
     const conversationMemberModel = new ConversationMembers();
     const conversationMemberTable = conversationMemberModel.getTable();
@@ -75,7 +75,24 @@ class WarnCommand extends BaseCommand {
     warnDto.message_id = replyMessage.id;
     warnDto.reason = reason;
 
+    if (!userDto.warns) {
+      userDto.warns = [];
+    }
     userDto.warns.push(warnDto);
+
+    const usedClient = clients.find((client) => client.groupId === group.id) as VkClient;
+    if (!usedClient) {
+      Logger.error(`Failed to find client for group ${group.id}`, LogTagEnum.Command);
+      return false;
+    }
+
+    const userInfo = await usedClient.getUserInfo(targetUserId);
+    if (!userInfo) {
+      Logger.error(`Failed to get user info for user ${targetUserId}`, LogTagEnum.Command);
+      return false;
+    }
+    const userTap = getUserTap(targetUserId, `${userInfo.first_name} ${userInfo.last_name}`);
+
     if (!(userDto.warns.length % 3)) {
       const resultUserDto = mutePerson(
         userDto,
@@ -104,6 +121,7 @@ class WarnCommand extends BaseCommand {
         conversation_id : context.message.peer_id,
       } as object, (item) => {
         Object.assign(item, userDto);
+        console.log(item);
       });
     } else {
       conversationMemberTable.insert(userDto);

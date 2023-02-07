@@ -38,7 +38,13 @@ abstract class BaseCommand {
    * Executes command
    * @returns true if command was executed successfully, false otherwise
    */
-  abstract execute(context: VkBotContext, group: GroupDto, user: GroupMemberDto, args: CommandArgumentDto[], additionalInfo?: unknown): boolean;
+  abstract execute(
+    context: VkBotContext,
+    group: GroupDto,
+    user: GroupMemberDto,
+    args: CommandArgumentDto[],
+    additionalInfo?: unknown,
+  ): Promise<boolean>;
 
   abstract getCommandType(): CommandType;
 
