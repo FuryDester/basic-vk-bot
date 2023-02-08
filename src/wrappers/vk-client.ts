@@ -115,6 +115,29 @@ class VkClient {
     }
   }
 
+  editMessage(
+    peer_id: number,
+    message_id: number,
+    message: string,
+  ) {
+    try {
+      return this.getBotInstance().execute('messages.edit', {
+        peer_id,
+        message_id,
+        message,
+      });
+    } catch (e) {
+      throw new VkBotApiException(e?.response?.error_msg ?? '', {
+        method : 'messages.edit',
+        params : {
+          peer_id,
+          message_id,
+          message,
+        },
+      });
+    }
+  }
+
   removeChatUser(
     chat_id: number | string,
     user_id: number | string,
