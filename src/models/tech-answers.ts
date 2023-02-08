@@ -1,10 +1,8 @@
 import BaseModel from '@/models/base-model';
-import Lokiable from '@/data-transfer-objects/lokiable';
-import BaseDto from '@/data-transfer-objects/base-dto';
 import TechAnswerDto from '@/data-transfer-objects/models/tech-answer-dto';
 
 class TechAnswers extends BaseModel {
-  protected getDto(): (BaseDto & object) | (Lokiable & object) {
+  protected getDto(): TechAnswerDto {
     return new TechAnswerDto();
   }
 
