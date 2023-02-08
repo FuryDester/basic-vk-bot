@@ -4,7 +4,6 @@ import type { CommandType, GroupMemberPermission, GroupPermission } from '@/type
 import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum } from '@/enums';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
-import Logger from '@/wrappers/logger';
 
 class GetAllPermissionsCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
