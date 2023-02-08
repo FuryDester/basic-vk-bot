@@ -1,4 +1,5 @@
 import Lokiable from '@/data-transfer-objects/lokiable';
+import type { ActionHelperKey } from '@/types';
 
 class ActionHelperDto extends Lokiable {
   group_id: number;
@@ -7,7 +8,7 @@ class ActionHelperDto extends Lokiable {
 
   updated_at: number;
 
-  key: string;
+  key: ActionHelperKey;
 
   value: unknown;
 }

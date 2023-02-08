@@ -27,6 +27,7 @@ export enum GroupPermissionEnum {
   ChatCommands = 'chat_commands',
   ConversationCommands = 'conversation_commands',
   TechStatistics = 'tech_statistics',
+  Mailing = 'mailing',
 }
 
 export enum GroupMemberPermissionEnum {
@@ -45,6 +46,7 @@ export enum GroupMemberPermissionEnum {
   CommandMyPermissions = 'command_my_permissions',
   CommandGetPermissions = 'command_get_permissions',
   CommandGetAllPermissions = 'command_get_all_permissions',
+  CommandUpdateMailAvailability = 'command_update_mail_availability',
 }
 
 export enum CommandTypeEnum {
@@ -56,4 +58,8 @@ export enum HandlerEventEnum {
   MessageNew = 'message_new',
   MessageEdit = 'message_edit',
   MessageReply = 'message_reply',
+}
+
+export enum ActionHelperKeyEnum {
+  UpdateMailAvailabilityPlaceholder = 'update_mail_availability_placeholder',
 }
