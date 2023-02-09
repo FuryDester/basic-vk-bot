@@ -62,4 +62,13 @@ export enum HandlerEventEnum {
 
 export enum ActionHelperKeyEnum {
   UpdateMailAvailabilityPlaceholder = 'update_mail_availability_placeholder',
+  UpdateMailAvailabilityOffset = 'update_mail_availability_offset',
+  UpdateMailAvailabilityStep = 'update_mail_availability_step',
+  UpdateMailAvailabilityRunning = 'update_mail_availability_running',
+}
+
+export enum UpdateMailAvailabilityStepEnum {
+  UpdateExisting = 'update_existing',
+  AddNewGroup = 'add_new_group',
+  AddNewDialogues = 'add_new_dialogues',
 }
