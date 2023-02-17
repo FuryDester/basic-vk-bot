@@ -5,7 +5,7 @@ class AutoAnswerDto extends Lokiable {
 
   special_event_id?: string;
 
-  answer: string;
+  answer?: string;
 
   questions: string[];
 

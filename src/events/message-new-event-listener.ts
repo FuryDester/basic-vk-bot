@@ -25,6 +25,7 @@ import TakePermissionCommand from '@/logic/commands/chat/take-permission-command
 import MyPermissionsCommand from '@/logic/commands/chat/my-permissions-command';
 import GetPermissionsCommand from '@/logic/commands/chat/get-permissions-command';
 import GetAllPermissionsCommand from '@/logic/commands/chat/get-all-permissions-command';
+import processUserQuestion from '@/logic/helpers/chat/process-user-question';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -148,6 +149,8 @@ class MessageNewEventListener extends BaseListener {
     const isConversationMessage = VkClient.isConversationMessage(data);
     if (isConversationMessage) {
       processUserMute(data);
+    } else {
+      processUserQuestion(data);
     }
 
     const message = data.message.text.trim();
