@@ -28,6 +28,7 @@ import GetAllPermissionsCommand from '@/logic/commands/chat/get-all-permissions-
 import processUserQuestion from '@/logic/helpers/chat/process-user-question';
 import AddAutoAnswerCommand from '@/logic/commands/chat/add-auto-answer-command';
 import RemoveAutoAnswerCommand from '@/logic/commands/chat/remove-auto-answer-command';
+import SetPastebinCommand from '@/logic/commands/chat/set-pastebin-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -49,6 +50,7 @@ class MessageNewEventListener extends BaseListener {
       new GetAllPermissionsCommand(),
       new AddAutoAnswerCommand(),
       new RemoveAutoAnswerCommand(),
+      new SetPastebinCommand(),
     ];
   }
 

@@ -32,7 +32,8 @@
     "lokijs": "^1.5.12",
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
-    "node-vk-bot-api": "^3.5.0"
+    "node-vk-bot-api": "^3.5.0",
+    "pastebin-ts": "^1.3.0"
   },
   "devDependencies": {
     "@types/lokijs": "^1.5.7",

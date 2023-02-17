@@ -50,6 +50,8 @@ export enum GroupMemberPermissionEnum {
   CommandUpdateMailAvailability = 'command_update_mail_availability',
   CommandAddAutoAnswer = 'command_add_auto_answer',
   CommandRemoveAutoAnswer = 'command_remove_auto_answer',
+  CommandGetAutoAnswers = 'command_get_auto_answers',
+  CommandSetPastebin = 'command_set_pastebin',
 }
 
 export enum CommandTypeEnum {
