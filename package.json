@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
+  "_moduleAliases": {
+    "@": "build"
+  },
   "scripts": {
     "start": "node build/index.js",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "fill": "node build/create-data.js"
   },
   "repository": {
     "type": "git",
@@ -26,10 +30,15 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "lokijs": "^1.5.12",
-    "node-vk-bot-api": "^3.5.0"
+    "module-alias": "^2.2.2",
+    "moment": "^2.29.4",
+    "node-vk-bot-api": "^3.5.0",
+    "pastebin-ts": "^1.3.0"
   },
   "devDependencies": {
+    "@types/lokijs": "^1.5.7",
     "@types/node": "^18.11.9",
+    "eslint-import-resolver-typescript": "^3.5.2",
     "typescript": "^4.8.4"
   }
 }

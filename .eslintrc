@@ -6,6 +6,39 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["import"],
-  "rules": {}
+  "plugins": ["import", "@typescript-eslint"],
+  "settings": {
+    "import/extensions": {
+      "node": {
+        "extensions": [".ts"]
+      }
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
+  "rules": {
+    "key-spacing": ["error", {
+      "align": {
+        "beforeColon": true,
+        "afterColon": true,
+        "on": "colon"
+      }
+    }],
+    "max-len": ["error", 150],
+    "linebreak-style": ["error", "unix"],
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_",
+      "caughtErrorsIgnorePattern": "^_"
+    }],
+    "comma-dangle": ["error", "always-multiline"],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+  }
 }

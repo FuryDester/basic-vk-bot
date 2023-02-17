@@ -1,0 +1,36 @@
+import 'module-alias/register';
+
+import { config } from 'dotenv';
+import { resolve } from 'path';
+config({ path: resolve(__dirname, '../.env') });
+
+import '@/exceptions/handler';
+
+import { databaseClient } from '@/wrappers/database-client';
+import GroupsData from '@/models/groups-data';
+import Logger from '@/wrappers/logger';
+import GroupDto from '@/data-transfer-objects/models/group-dto';
+import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
+import { GroupPermissionEnum, GroupMemberPermissionEnum } from '@/enums';
+
+databaseClient.afterAvailability(() => {
+  Logger.info('Starting filling database...');
+
+  const groupsData = (new GroupsData()).getTable();
+  const groupDto = new GroupDto();
+  groupDto.id = /*your group id here*/;
+  groupDto.name = /*local group name*/;
+  groupDto.token = /*your group token here*/;
+  groupDto.permissions = [GroupPermissionEnum.All];
+
+  const groupMemberDto = new GroupMemberDto();
+  groupMemberDto.user_id = /*admin user id here*/;
+  groupMemberDto.permissions = [GroupMemberPermissionEnum.All];
+  groupDto.members = [groupMemberDto];
+
+  groupsData.insert(groupDto);
+
+  Logger.info('Database filled');
+
+  databaseClient.close();
+});
