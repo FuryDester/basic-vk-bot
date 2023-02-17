@@ -16,7 +16,7 @@ class NotifyTechEvent implements BaseSpecialEvent {
     const groupModel = new GroupsData();
     const groupTable = groupModel.getTable();
     const group = groupModel.formDto(groupTable.findOne({
-      group_id: context.groupId,
+      id: context.groupId,
     } as object)) as GroupDto;
 
     const notifiableMembers = group.members.filter((item) => item.permissions.includes(GroupMemberPermissionEnum.CountTechStatistics));
