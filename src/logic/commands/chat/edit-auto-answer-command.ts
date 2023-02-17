@@ -16,6 +16,7 @@ class EditAutoAnswerCommand extends BaseCommand {
     args: CommandArgumentDto[],
     _additionalInfo?: unknown,
   ): Promise<boolean> {
+    console.log(args);
     if (!context.message.reply_message || !context.message.reply_message.text) {
       context.reply('Вы должны ответить на сообщение, которое будет записано в базу');
       Logger.warning(`No reply message supplied! Group id: ${group.id}`, LogTagEnum.Command);
@@ -31,7 +32,14 @@ class EditAutoAnswerCommand extends BaseCommand {
       return false;
     }
 
-    const id = Number.parseInt(args.find((item) => item.position === 1).argumentValue, 10);
+    const id = Number.parseInt(args.find((item) => item.position === 1)?.argumentValue, 10);
+    if (Number.isNaN(id)) {
+      context.reply('Не указан идентификатор');
+      Logger.warning(`No template id given. Group: ${group.id}`, LogTagEnum.Command);
+
+      return false;
+    }
+
     const autoAnswersModel = new AutoAnswers();
     const autoAnswersTable = autoAnswersModel.getTable();
     const autoAnswer = autoAnswersTable.get(id);
@@ -44,7 +52,13 @@ class EditAutoAnswerCommand extends BaseCommand {
 
     const answerDto = autoAnswersModel.formDto(autoAnswer) as AutoAnswerDto;
     const parsedQuestions = questions.trim().toLowerCase().split('|').map((item) => item.trim());
-    const priority = Number.parseInt(args.find((item) => item.position === 2).argumentValue, 10);
+    const priority = Number.parseInt(args.find((item) => item.position === 2)?.argumentValue, 10);
+    if (Number.isNaN(priority)) {
+      context.reply('Не задан приоритет шаблона');
+      Logger.warning(`No priority given. Group id: ${group.id}`, LogTagEnum.Command);
+
+      return false;
+    }
 
     answerDto.answer = context.message.reply_message.text;
     answerDto.questions = parsedQuestions;
@@ -79,7 +93,7 @@ class EditAutoAnswerCommand extends BaseCommand {
     argQuestions.alias = 'вопросы';
     argQuestions.description = 'Триггеры, разделённые через |';
 
-    return [argPriority, argQuestions];
+    return [argId, argPriority, argQuestions];
   }
 
   getCommandType(): CommandType {
