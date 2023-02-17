@@ -65,8 +65,8 @@ class UnwarnCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
     const user = new CommandArgumentDto();
     user.position = 1;
-    user.isOptional = false;
-    user.isLong = true;
+    user.is_optional = false;
+    user.is_long = true;
     user.description = 'Упоминание пользователя';
     user.alias = 'упоминание';
 

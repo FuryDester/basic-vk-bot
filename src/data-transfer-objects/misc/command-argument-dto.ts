@@ -4,9 +4,9 @@ class CommandArgumentDto implements BaseDto {
   position: number;
 
   // Is argument long (more than one word)
-  isLong: boolean;
+  is_long: boolean;
 
-  isOptional: boolean;
+  is_optional: boolean;
 
   alias: string;
 

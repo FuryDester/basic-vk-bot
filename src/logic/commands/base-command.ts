@@ -68,7 +68,7 @@ abstract class BaseCommand {
         return;
       }
 
-      if (!args[commandIterator].isLong) {
+      if (!args[commandIterator].is_long) {
         args[commandIterator].argumentValue = argument;
 
         commandIterator++;
@@ -83,7 +83,7 @@ abstract class BaseCommand {
     });
 
     // Checking if all required arguments are present
-    const missingArgument = args.find((arg) => !arg.isOptional && !arg.argumentValue);
+    const missingArgument = args.find((arg) => !arg.is_optional && !arg.argumentValue);
     if (missingArgument) {
       throw new CommandInsufficientArguments('Not all arguments presented in command.', { argument: missingArgument.alias });
     }
@@ -94,7 +94,7 @@ abstract class BaseCommand {
   formCommandInfo(detail: boolean = false): string {
     const args = this.getArguments().sort((first, second) => first.position - second.position);
     const argsInfo = args.map((arg) => {
-      return `${arg.isOptional ? '?' : ''}${arg.alias}${arg.isLong ? '...' : ''}${detail ? ` - ${arg.description}` : ''}`;
+      return `${arg.is_optional ? '?' : ''}${arg.alias}${arg.is_long ? '...' : ''}${detail ? ` - ${arg.description}` : ''}`;
     }).join(detail ? '\n' : ' ');
 
     let commandInfo = `/${this.getName()}`;

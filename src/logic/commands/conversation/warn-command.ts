@@ -129,8 +129,8 @@ class WarnCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
     const reason = new CommandArgumentDto();
     reason.position = 1;
-    reason.isLong = true;
-    reason.isOptional = false;
+    reason.is_long = true;
+    reason.is_optional = false;
     reason.alias = 'причина';
     reason.description = 'Причина выдачи предупреждения';
 

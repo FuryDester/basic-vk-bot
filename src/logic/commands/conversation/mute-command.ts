@@ -85,17 +85,17 @@ class MuteCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
     const timeArg = new CommandArgumentDto();
     timeArg.position = 1;
-    timeArg.isOptional = false;
-    timeArg.isLong = false;
+    timeArg.is_optional = false;
+    timeArg.is_long = false;
     timeArg.alias = 'время';
     timeArg.description = 'Время, на которое выдаётся мут';
 
     const reasonArg = new CommandArgumentDto();
     reasonArg.position = 2;
-    reasonArg.isOptional = false;
+    reasonArg.is_optional = false;
     reasonArg.alias = 'причина';
     reasonArg.description = 'Причина выдачи мута';
-    reasonArg.isLong = true;
+    reasonArg.is_long = true;
 
     return [timeArg, reasonArg];
   }

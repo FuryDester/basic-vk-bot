@@ -12,8 +12,8 @@ class MyPermissionsCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
     const user = new CommandArgumentDto();
     user.position = 1;
-    user.isOptional = false;
-    user.isLong = false;
+    user.is_optional = false;
+    user.is_long = false;
     user.description = 'Идентификатор пользователя';
     user.alias = 'идентификатор';
 

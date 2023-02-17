@@ -62,15 +62,15 @@ class SummaryTechStatisticsCommand extends BaseCommand {
 
   getArguments(): CommandArgumentDto[] {
     const periodFrom = new CommandArgumentDto();
-    periodFrom.isLong = false;
-    periodFrom.isOptional = true;
+    periodFrom.is_long = false;
+    periodFrom.is_optional = true;
     periodFrom.alias = 'дата_с';
     periodFrom.description = 'Дата начала периода, за который нужно получить статистику.';
     periodFrom.position = 1;
 
     const periodTo = new CommandArgumentDto();
-    periodTo.isLong = false;
-    periodTo.isOptional = true;
+    periodTo.is_long = false;
+    periodTo.is_optional = true;
     periodTo.alias = 'дата_по';
     periodTo.description = 'Дата конца периода, за который нужно получить статистику.';
     periodTo.position = 2;

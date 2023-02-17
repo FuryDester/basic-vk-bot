@@ -101,15 +101,15 @@ class GivePermissionCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
     const user = new CommandArgumentDto();
     user.position = 1;
-    user.isOptional = false;
-    user.isLong = false;
+    user.is_optional = false;
+    user.is_long = false;
     user.description = 'Идентификатор пользователя';
     user.alias = 'идентификатор';
 
     const permission = new CommandArgumentDto();
     permission.position = 2;
-    permission.isOptional = false;
-    permission.isLong = false;
+    permission.is_optional = false;
+    permission.is_long = false;
     permission.description = 'Название права';
     permission.alias = 'право';
 

@@ -95,10 +95,10 @@ class KickCommand extends BaseCommand {
   getArguments(): CommandArgumentDto[] {
     const reasonArg = new CommandArgumentDto();
     reasonArg.position = 1;
-    reasonArg.isOptional = false;
+    reasonArg.is_optional = false;
     reasonArg.alias = 'причина';
     reasonArg.description = 'Причина кика';
-    reasonArg.isLong = true;
+    reasonArg.is_long = true;
 
     return [reasonArg];
   }

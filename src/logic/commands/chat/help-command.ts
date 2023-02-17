@@ -70,8 +70,8 @@ class HelpCommand extends BaseCommand {
     const commandArgumentDto = new CommandArgumentDto();
     Object.assign(commandArgumentDto, {
       position    : 1,
-      isLong      : false,
-      isOptional  : true,
+      is_long     : false,
+      is_optional : true,
       alias       : 'команда',
       description : 'Команда, о которой нужно получить информацию.',
     });
