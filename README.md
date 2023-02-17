@@ -106,3 +106,7 @@ VK: [@FuryDester](https://vk.com/furydester)
 - Make mail functionality;
 - Write and correct readme;
 - Probably add more special events.
+
+## License
+
+[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
