@@ -29,6 +29,7 @@ import processUserQuestion from '@/logic/helpers/chat/process-user-question';
 import AddAutoAnswerCommand from '@/logic/commands/chat/add-auto-answer-command';
 import RemoveAutoAnswerCommand from '@/logic/commands/chat/remove-auto-answer-command';
 import SetPastebinCommand from '@/logic/commands/chat/set-pastebin-command';
+import GetAutoAnswersCommand from '@/logic/commands/chat/get-auto-answers-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -51,6 +52,7 @@ class MessageNewEventListener extends BaseListener {
       new AddAutoAnswerCommand(),
       new RemoveAutoAnswerCommand(),
       new SetPastebinCommand(),
+      new GetAutoAnswersCommand(),
     ];
   }
 
