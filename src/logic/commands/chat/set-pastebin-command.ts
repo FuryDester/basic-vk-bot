@@ -6,7 +6,6 @@ import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 import { CommandTypeEnum, GroupMemberPermissionEnum, LogTagEnum } from '@/enums';
 import PastebinAPI from 'pastebin-ts';
 import Logger from '@/wrappers/logger';
-import getClientByGroupId from '@/logic/helpers/misc/get-client-by-group-id';
 import GroupsData from '@/models/groups-data';
 
 class SetPastebinCommand extends BaseCommand {
@@ -25,9 +24,6 @@ class SetPastebinCommand extends BaseCommand {
       return false;
     }
 
-    const client = getClientByGroupId(group.id);
-    await client.deleteMessage(context.message.peer_id, context.message.id);
-
     context.reply('Проверяем ключ...');
 
     const pastebin = new PastebinAPI({
@@ -43,7 +39,7 @@ class SetPastebinCommand extends BaseCommand {
       const groupTable = (new GroupsData()).getTable();
       groupTable.update(newGroup);
 
-      context.reply('Ключ прошёл валидацию и добавлен в настройки группы!');
+      context.reply('Ключ прошёл валидацию и добавлен в настройки группы! Не забудьте удалить сообщение с командой');
       Logger.info(`Added new pastebin key to group ${group.id}, key: ${key}`, LogTagEnum.Command);
 
       return true;
