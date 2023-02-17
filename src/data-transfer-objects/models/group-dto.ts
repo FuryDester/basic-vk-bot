@@ -9,6 +9,8 @@ class GroupDto extends Lokiable {
 
   token: string;
 
+  pastebin_token: string;
+
   members: GroupMemberDto[];
 
   permissions: GroupPermission[];
