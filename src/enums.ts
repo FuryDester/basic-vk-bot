@@ -77,3 +77,7 @@ export enum UpdateMailAvailabilityStepEnum {
   AddNewGroup = 'add_new_group',
   AddNewDialogues = 'add_new_dialogues',
 }
+
+export enum AnswerSpecialEventEnum {
+  NotifyTech = 'notify_tech',
+}

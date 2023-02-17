@@ -2,8 +2,14 @@ import AutoAnswers from '@/models/auto-answers';
 import AutoAnswerDto from '@/data-transfer-objects/models/auto-answer-dto';
 import Logger from '@/wrappers/logger';
 import { LogTagEnum } from '@/enums';
+import BaseSpecialEvent from '@/logic/helpers/chat/answer-special-event/base-special-event';
+import NotifyTechEvent from '@/logic/helpers/chat/answer-special-event/notify-tech-event';
 
-export default (ctx: VkBotContext): boolean => {
+const SPECIAL_EVENTS: BaseSpecialEvent[] = [
+  new NotifyTechEvent(),
+];
+
+export default async (ctx: VkBotContext): Promise<boolean> => {
   const message = ctx.message.text.toLowerCase().trim();
   if (!message) {
     Logger.warning(`Empty message received in process user question. Group id: ${ctx.groupId}`, LogTagEnum.System);
@@ -49,7 +55,21 @@ export default (ctx: VkBotContext): boolean => {
     return true;
   }
 
-  // TODO: Special events
+  const event = SPECIAL_EVENTS.find((item) => item.getSpecialEventCode() === answerDto.special_event_id);
+  if (!event) {
+    Logger.critical(`No handler for special event ${answerDto.special_event_id}, group id: ${ctx.groupId}`, LogTagEnum.System);
+
+    return false;
+  }
+
+  if (await event.handle(ctx)) {
+    Logger.info(`Special event finished successfully. Special event: ${answerDto.special_event_id} (group ${ctx.groupId})`, LogTagEnum.System);
+  } else {
+    Logger.error(
+      `Special event exited with false code. Special event: ${answerDto.special_event_id}, ctx: ${JSON.stringify(ctx)}`,
+      LogTagEnum.System,
+    );
+  }
 
   return true;
 };
