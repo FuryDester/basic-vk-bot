@@ -16,7 +16,7 @@ class AddAutoAnswer extends BaseCommand {
     args: CommandArgumentDto[],
     _additionalInfo?: unknown,
   ): Promise<boolean> {
-    if (!context.message.reply_message || !context.message.reply_message.reply_message.text) {
+    if (!context.message.reply_message || !context.message.reply_message.text) {
       context.reply('Вы должны ответить на сообщение, которое будет записано в базу');
       Logger.warning(`No reply message supplied! Group id: ${group.id}`, LogTagEnum.Command);
 
