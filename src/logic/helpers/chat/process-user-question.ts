@@ -37,11 +37,13 @@ export default (ctx: VkBotContext): boolean => {
   }
 
   if (answerDto.priority <= 0) {
+    Logger.info(`Template is disabled in group ${ctx.groupId}, answer id: ${answer.$loki}`, LogTagEnum.System);
     return true;
   }
 
   if (!answerDto.special_event_id) {
     ctx.reply(answerDto.answer);
+    Logger.info(`Answered in group ${ctx.groupId} with answer id: ${answer.$loki}`, LogTagEnum.System);
 
     return true;
   }
