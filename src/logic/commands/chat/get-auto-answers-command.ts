@@ -8,6 +8,7 @@ import Logger from '@/wrappers/logger';
 import PastebinAPI from 'pastebin-ts';
 import AutoAnswerDto from '@/data-transfer-objects/models/auto-answer-dto';
 import * as moment from 'moment';
+import AutoAnswers from '@/models/auto-answers';
 
 class GetAutoAnswersCommand extends BaseCommand {
   async execute(
@@ -26,9 +27,23 @@ class GetAutoAnswersCommand extends BaseCommand {
       api_dev_key: group.pastebin_token,
     });
 
+    const autoAnswersModel = new AutoAnswers();
+    const autoAnswersTable = autoAnswersModel.getTable();
+
+    const answers = autoAnswersTable.find({
+      group_id: group.id,
+    } as object);
+    if (!answers.length) {
+      context.reply('В данной группе не установлены шаблоны');
+      Logger.info(`No templates set in group ${group.id}`);
+
+      return true;
+    }
+
+    const answerDtos = autoAnswersModel.formDtos(answers) as AutoAnswerDto[];
     try {
       const result = await pastebin.createPaste({
-        text       : this.formOutputString([]),
+        text       : this.formOutputString(answerDtos),
         privacy    : 1,
         title      : `Templates ${moment().format('DD.MM.YYYY HH:mm:ss')} (group ${group.id})`,
         expiration : '1H',
