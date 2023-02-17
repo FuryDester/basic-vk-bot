@@ -6,6 +6,7 @@ import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
 import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum, LogTagEnum } from '@/enums';
 import Logger from '@/wrappers/logger';
 import AutoAnswers from '@/models/auto-answers';
+import AutoAnswerDto from '@/data-transfer-objects/models/auto-answer-dto';
 
 class RemoveAutoAnswerCommand extends BaseCommand {
   async execute(
@@ -24,9 +25,17 @@ class RemoveAutoAnswerCommand extends BaseCommand {
     }
 
     const autoAnswersTable = (new AutoAnswers()).getTable();
-    if (!autoAnswersTable.get(id)) {
+    const item = autoAnswersTable.get(id) as AutoAnswerDto;
+    if (!item) {
       context.reply('Не найден шаблон с таким идентификатором');
       Logger.warning(`Wrong template id supplied. Group id: ${group.id}`, LogTagEnum.Command);
+
+      return false;
+    }
+
+    if (item.special_event_id) {
+      context.reply('На данный момент нельзя удалить шаблон с специальным действием');
+      Logger.warning(`Tried to remove template with special event in group ${group.id}`, LogTagEnum.Command);
 
       return false;
     }
