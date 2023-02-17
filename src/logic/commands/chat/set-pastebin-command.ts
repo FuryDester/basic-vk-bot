@@ -44,6 +44,9 @@ class SetPastebinCommand extends BaseCommand {
       groupTable.update(newGroup);
 
       context.reply('Ключ прошёл валидацию и добавлен в настройки группы!');
+      Logger.info(`Added new pastebin key to group ${group.id}, key: ${key}`, LogTagEnum.Command);
+
+      return true;
     } catch (e) {
       context.reply(`Сервер вернул ошибку: ${e.message}`);
       Logger.warning(`Pastebin returned error: ${e.message} (group id: ${group.id})`, LogTagEnum.Command);
