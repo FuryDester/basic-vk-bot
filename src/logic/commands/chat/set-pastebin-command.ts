@@ -31,7 +31,9 @@ class SetPastebinCommand extends BaseCommand {
     });
 
     try {
-      await pastebin.getUserInfo();
+      await pastebin.createPaste({
+        text: `Key functionality test (VK: https://vk.com/club${group.id})`,
+      });
 
       const newGroup = group;
       newGroup.pastebin_token = key;
