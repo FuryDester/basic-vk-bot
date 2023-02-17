@@ -13,10 +13,10 @@ export default (ctx: VkBotContext): boolean => {
   const autoAnswersModel = new AutoAnswers();
   const autoAnswersTable = autoAnswersModel.getTable();
 
+  // FIXME: Limit does not work for some reason
   const answer = autoAnswersTable
     .chain()
     .sort((a: AutoAnswerDto, b: AutoAnswerDto) => a.priority - b.priority)
-    .limit(1)
     .find({
       group_id  : ctx.groupId,
       questions : {
