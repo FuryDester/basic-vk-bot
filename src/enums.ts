@@ -28,6 +28,7 @@ export enum GroupPermissionEnum {
   ConversationCommands = 'conversation_commands',
   TechStatistics = 'tech_statistics',
   Mailing = 'mailing',
+  AutoAnswers = 'auto_answers',
 }
 
 export enum GroupMemberPermissionEnum {
@@ -47,6 +48,8 @@ export enum GroupMemberPermissionEnum {
   CommandGetPermissions = 'command_get_permissions',
   CommandGetAllPermissions = 'command_get_all_permissions',
   CommandUpdateMailAvailability = 'command_update_mail_availability',
+  CommandAddAutoAnswer = 'command_add_auto_answer',
+  CommandRemoveAutoAnswer = 'command_remove_auto_answer',
 }
 
 export enum CommandTypeEnum {

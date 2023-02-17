@@ -126,7 +126,7 @@ class GivePermissionCommand extends BaseCommand {
   }
 
   getDescription(): string {
-    return `Выдаёт пользователю права.`;
+    return 'Выдаёт пользователю права.';
   }
 
   getGroupMemberPermissions(): GroupMemberPermission[] {

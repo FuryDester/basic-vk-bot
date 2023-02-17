@@ -32,6 +32,12 @@ export default (ctx: VkBotContext): boolean => {
   const answerDto = autoAnswersModel.formDto(answer) as AutoAnswerDto;
   if (!answerDto.answer && !answerDto.special_event_id) {
     Logger.error(`No answer and special_event_id set for answer. Answer id: ${answer.$loki}`, LogTagEnum.System);
+
+    return false;
+  }
+
+  if (answerDto.priority <= 0) {
+    return true;
   }
 
   if (!answerDto.special_event_id) {
