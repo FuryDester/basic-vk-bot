@@ -65,7 +65,7 @@ class GetAutoAnswersCommand extends BaseCommand {
     return data.map((item) => {
       let result = `ID: ${item.$loki}\n`;
       result += `Group ID: ${item.group_id}\n`;
-      result += `Special Code: ${item.special_event_id || ''}\n`;
+      result += `Special Code: ${item.special_event_id || 'No special code'}\n`;
       result += `Triggers: ${item.questions.join(', ')}\n`;
       result += `Answer:\n${item.answer}`;
 
