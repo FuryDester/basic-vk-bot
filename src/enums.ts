@@ -51,7 +51,9 @@ export enum GroupMemberPermissionEnum {
   CommandAddAutoAnswer = 'command_add_auto_answer',
   CommandRemoveAutoAnswer = 'command_remove_auto_answer',
   CommandGetAutoAnswers = 'command_get_auto_answers',
+  CommandEditAutoAnswer = 'command_edit_auto_answer',
   CommandSetPastebin = 'command_set_pastebin',
+  CommandGetAllSpecialEvents = 'command_get_all_special_events',
 }
 
 export enum CommandTypeEnum {

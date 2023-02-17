@@ -1,9 +1,15 @@
 import BaseCommand from '@/logic/commands/base-command';
-import type { CommandType, GroupMemberPermission, GroupPermission } from '@/types';
+import type { AnswerSpecialEvent, CommandType, GroupMemberPermission, GroupPermission } from '@/types';
 import CommandArgumentDto from '@/data-transfer-objects/misc/command-argument-dto';
 import GroupDto from '@/data-transfer-objects/models/group-dto';
 import GroupMemberDto from '@/data-transfer-objects/models/group-member-dto';
-import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum, LogTagEnum } from '@/enums';
+import {
+  AnswerSpecialEventEnum,
+  CommandTypeEnum,
+  GroupMemberPermissionEnum,
+  GroupPermissionEnum,
+  LogTagEnum,
+} from '@/enums';
 import Logger from '@/wrappers/logger';
 import AutoAnswers from '@/models/auto-answers';
 import AutoAnswerDto from '@/data-transfer-objects/models/auto-answer-dto';
@@ -16,8 +22,15 @@ class EditAutoAnswerCommand extends BaseCommand {
     args: CommandArgumentDto[],
     _additionalInfo?: unknown,
   ): Promise<boolean> {
-    console.log(args);
-    if (!context.message.reply_message || !context.message.reply_message.text) {
+    const specialEvent = args.find((item) => item.position === 3)?.argumentValue?.trim();
+    if (specialEvent && !Object.values(AnswerSpecialEventEnum).includes(specialEvent as unknown as AnswerSpecialEventEnum)) {
+      context.reply('Неправильное специальное событие. Смотри: /help getallspecialevents');
+      Logger.warning(`Invalid special event given. Group: ${group.id}`, LogTagEnum.Command);
+
+      return false;
+    }
+
+    if ((!context.message.reply_message || !context.message.reply_message.text) && !specialEvent) {
       context.reply('Вы должны ответить на сообщение, которое будет записано в базу');
       Logger.warning(`No reply message supplied! Group id: ${group.id}`, LogTagEnum.Command);
 
@@ -60,9 +73,10 @@ class EditAutoAnswerCommand extends BaseCommand {
       return false;
     }
 
-    answerDto.answer = context.message.reply_message.text;
+    answerDto.answer = context.message?.reply_message?.text || null;
     answerDto.questions = parsedQuestions;
     answerDto.priority = priority;
+    answerDto.special_event_id = specialEvent as AnswerSpecialEvent || null;
     autoAnswersTable.update(answerDto);
 
     context.reply('Шаблон изменён!');
@@ -93,7 +107,14 @@ class EditAutoAnswerCommand extends BaseCommand {
     argQuestions.alias = 'вопросы';
     argQuestions.description = 'Триггеры, разделённые через |';
 
-    return [argId, argPriority, argQuestions];
+    const argSpecialEvent = new CommandArgumentDto();
+    argSpecialEvent.position = 3;
+    argSpecialEvent.is_long = false;
+    argSpecialEvent.is_optional = true;
+    argSpecialEvent.alias = 'спецсобытие';
+    argSpecialEvent.description = 'Специальное событие при вызове шаблона';
+
+    return [argId, argPriority, argQuestions, argSpecialEvent];
   }
 
   getCommandType(): CommandType {
@@ -105,7 +126,7 @@ class EditAutoAnswerCommand extends BaseCommand {
   }
 
   getGroupMemberPermissions(): GroupMemberPermission[] {
-    return [GroupMemberPermissionEnum.CommandAddAutoAnswer];
+    return [GroupMemberPermissionEnum.CommandEditAutoAnswer];
   }
 
   getGroupPermissions(): GroupPermission[] {

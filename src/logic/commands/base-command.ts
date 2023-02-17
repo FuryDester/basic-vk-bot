@@ -59,7 +59,7 @@ abstract class BaseCommand {
   // Adds values to command arguments DTOs
   parseArguments(commandLine: string): CommandArgumentDto[] {
     const args = this.getArguments().sort((first, second) => first.position - second.position);
-    const longArgumentEnding = '--@--';
+    const longArgumentEnding = '-@-';
 
     // Splitting command line into arguments
     let commandIterator = 0;

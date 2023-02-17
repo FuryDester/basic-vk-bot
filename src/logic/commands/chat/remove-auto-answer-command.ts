@@ -33,13 +33,6 @@ class RemoveAutoAnswerCommand extends BaseCommand {
       return false;
     }
 
-    if (item.special_event_id) {
-      context.reply('На данный момент нельзя удалить шаблон с специальным действием');
-      Logger.warning(`Tried to remove template with special event in group ${group.id}`, LogTagEnum.Command);
-
-      return false;
-    }
-
     autoAnswersTable.remove(id);
 
     context.reply('Шаблон удалён!');
