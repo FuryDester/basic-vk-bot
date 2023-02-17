@@ -40,6 +40,7 @@ class AddAutoAnswer extends BaseCommand {
     autoAnswerDto.answer = context.message.reply_message.text;
     autoAnswerDto.priority = Number.parseInt(priority, 10);
     autoAnswerDto.questions = parsedQuestions;
+    autoAnswerDto.group_id = group.id;
 
     autoAnswersTable.insert(autoAnswerDto);
 
