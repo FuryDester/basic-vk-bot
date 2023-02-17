@@ -8,7 +8,7 @@ import Logger from '@/wrappers/logger';
 import AutoAnswers from '@/models/auto-answers';
 import AutoAnswerDto from '@/data-transfer-objects/models/auto-answer-dto';
 
-class AddAutoAnswer extends BaseCommand {
+class AddAutoAnswerCommand extends BaseCommand {
   async execute(
     context: VkBotContext,
     group: GroupDto,
@@ -96,4 +96,4 @@ class AddAutoAnswer extends BaseCommand {
   }
 }
 
-export default AddAutoAnswer;
+export default AddAutoAnswerCommand;

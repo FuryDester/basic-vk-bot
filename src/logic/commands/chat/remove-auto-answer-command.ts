@@ -7,7 +7,7 @@ import { CommandTypeEnum, GroupMemberPermissionEnum, GroupPermissionEnum, LogTag
 import Logger from '@/wrappers/logger';
 import AutoAnswers from '@/models/auto-answers';
 
-class RemoveAutoAnswer extends BaseCommand {
+class RemoveAutoAnswerCommand extends BaseCommand {
   async execute(
     context: VkBotContext,
     group: GroupDto,
@@ -75,4 +75,4 @@ class RemoveAutoAnswer extends BaseCommand {
   }
 }
 
-export default RemoveAutoAnswer;
+export default RemoveAutoAnswerCommand;

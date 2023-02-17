@@ -26,8 +26,8 @@ import MyPermissionsCommand from '@/logic/commands/chat/my-permissions-command';
 import GetPermissionsCommand from '@/logic/commands/chat/get-permissions-command';
 import GetAllPermissionsCommand from '@/logic/commands/chat/get-all-permissions-command';
 import processUserQuestion from '@/logic/helpers/chat/process-user-question';
-import AddAutoAnswer from '@/logic/commands/chat/add-auto-answer';
-import RemoveAutoAnswer from '@/logic/commands/chat/remove-auto-answer';
+import AddAutoAnswerCommand from '@/logic/commands/chat/add-auto-answer-command';
+import RemoveAutoAnswerCommand from '@/logic/commands/chat/remove-auto-answer-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -47,8 +47,8 @@ class MessageNewEventListener extends BaseListener {
       new MyPermissionsCommand(),
       new GetPermissionsCommand(),
       new GetAllPermissionsCommand(),
-      new AddAutoAnswer(),
-      new RemoveAutoAnswer(),
+      new AddAutoAnswerCommand(),
+      new RemoveAutoAnswerCommand(),
     ];
   }
 
