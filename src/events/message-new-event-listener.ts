@@ -30,6 +30,7 @@ import AddAutoAnswerCommand from '@/logic/commands/chat/add-auto-answer-command'
 import RemoveAutoAnswerCommand from '@/logic/commands/chat/remove-auto-answer-command';
 import SetPastebinCommand from '@/logic/commands/chat/set-pastebin-command';
 import GetAutoAnswersCommand from '@/logic/commands/chat/get-auto-answers-command';
+import EditAutoAnswerCommand from '@/logic/commands/chat/edit-auto-answer-command';
 
 class MessageNewEventListener extends BaseListener {
   private getCommands(): BaseCommand[] {
@@ -50,6 +51,7 @@ class MessageNewEventListener extends BaseListener {
       new GetPermissionsCommand(),
       new GetAllPermissionsCommand(),
       new AddAutoAnswerCommand(),
+      new EditAutoAnswerCommand(),
       new RemoveAutoAnswerCommand(),
       new SetPastebinCommand(),
       new GetAutoAnswersCommand(),
